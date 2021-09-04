@@ -1,9 +1,11 @@
-import { Login } from "./components/login";
+import { Login } from "./components/Login";
+import { Register } from "./components/Register";
+
 
 function App() {
   return (
     <main>
-      <Login/>
+      <Register/>
     </main>
   );
 }
