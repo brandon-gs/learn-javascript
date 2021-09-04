@@ -1,9 +1,9 @@
-import "./App.css";
+import { Login } from "./components/login";
 
 function App() {
   return (
-    <main className="App">
-      <h1>Aprender Javascript</h1>
+    <main>
+      <Login/>
     </main>
   );
 }
