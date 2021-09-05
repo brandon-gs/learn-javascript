@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
@@ -9,7 +9,9 @@ import { FirebaseAppProvider } from "reactfire";
 ReactDOM.render(
     <React.StrictMode>
         <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-            <App />
+            <Suspense fallback={<p>Cargando...</p>}>
+                <App />
+            </Suspense>
         </FirebaseAppProvider>
     </React.StrictMode>,
     document.getElementById("root")

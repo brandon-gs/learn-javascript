@@ -1,4 +1,6 @@
-import { Login } from "../components/login";
+import { Login } from "../components/Login";
+import { Register } from "../components/Register";
+import { Problems } from "../components/Problems";
 
 interface RoutePage {
   path: string;
@@ -12,6 +14,14 @@ const pages: RoutePage[] = [
   {
     path: "/",
     component: Login,
+  },
+  {
+    path: "/register",
+    component: Register,
+  },
+  {
+    path: "/problems",
+    component: Problems,
   },
 ];
 
