@@ -6,9 +6,7 @@ function App() {
         <Router>
             <Switch>
                 {pages.map((page) => (
-                    <Route key={`page-${page.path}`} path={page.path}>
-                        {page.component}
-                    </Route>
+                    <Route exact key={`page-${page.path}`} {...page} />
                 ))}
             </Switch>
         </Router>
