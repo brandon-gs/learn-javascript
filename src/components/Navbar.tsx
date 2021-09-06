@@ -5,7 +5,7 @@ export const Navbar = () => {
         const auth = getAuth();
         signOut(auth)
             .then(() => {
-                window.location.href = "/";
+                console.log("logout");
             })
             .catch((error) => {
                 console.log(error);

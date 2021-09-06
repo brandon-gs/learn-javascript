@@ -8,6 +8,8 @@ interface iDataForm {
 }
 
 export const Register = () => {
+    const auth = getAuth();
+
     const [dataForm, setDataForm] = useState<iDataForm>({
         email: "",
         password: "",
@@ -24,7 +26,6 @@ export const Register = () => {
     const sendData = (event: SyntheticEvent) => {
         event.preventDefault();
         const { email, password } = dataForm;
-        const auth = getAuth();
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
