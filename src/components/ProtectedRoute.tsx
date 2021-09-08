@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 interface ProtectedRouteProps {
     type: "public" | "private";
-    children: React.ReactElement;
+    children: React.ReactNode;
 }
 
 /** Redirecciona a otra página dependiendo de si es una ruta publica o privada
@@ -39,5 +39,5 @@ export default function ProtectedRoute({
         };
     }, [history, type, auth]);
 
-    return loading ? <div>Loading...</div> : children;
+    return loading ? <div>Loading...</div> : <>{children}</>;
 }

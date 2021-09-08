@@ -3,6 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import imgLogin from "../assets/img/img-login.svg";
 import ProtectedRoute from "./ProtectedRoute";
+import useAlert from "../hooks/useAlert";
+import Alert from "./Alert";
 
 export const Login = () => {
     // Firebase
@@ -15,13 +17,16 @@ export const Login = () => {
     // React router dom
     const history = useHistory();
 
+    // Alert state
+    const { content, visible, type, updateAlert } = useAlert(false);
+
     const login = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
             history.push("/problems");
         } catch (e) {
-            console.log(e);
+            updateAlert("Usuario o contraseña incorrectos", true, "danger");
         }
     };
 
@@ -47,6 +52,11 @@ export const Login = () => {
                                     <h3 className="card-title text-center my-4">
                                         Inicia Sesión con tu cuenta
                                     </h3>
+                                    <Alert
+                                        type={type}
+                                        visible={visible}
+                                        content={content}
+                                    />
                                     <form onSubmit={login}>
                                         <div className="input-group my-4">
                                             <span

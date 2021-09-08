@@ -21,7 +21,7 @@ export const Navbar = () => {
                     </span>
                     <div className="d-flex">
                         <button
-                            className="btn btn-outline-warning"
+                            className="btn btn-warning"
                             type="button"
                             onClick={logOut}
                         >

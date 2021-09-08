@@ -1,6 +1,8 @@
 import { useState, SyntheticEvent } from "react";
 import imgRegister from "../assets/img/img-register.svg";
 import { getAuth, createUserWithEmailAndPassword } from "@firebase/auth";
+import useAlert from "../hooks/useAlert";
+import Alert from "./Alert";
 
 interface iDataForm {
     email: string;
@@ -9,6 +11,8 @@ interface iDataForm {
 
 export const Register = () => {
     const auth = getAuth();
+
+    const registerAlert = useAlert(false);
 
     const [dataForm, setDataForm] = useState<iDataForm>({
         email: "",
@@ -33,9 +37,16 @@ export const Register = () => {
                 window.location.href = "/problems";
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                window.location.href = "/login";
+                const errorCode = error.code as string;
+                let content = "";
+                if (errorCode.includes("email-already-in-use")) {
+                    content = "El correo eléctronico ya esta en uso.";
+                } else if (errorCode.includes("weak-password")) {
+                    content = "La contraseña no es segura.";
+                } else {
+                    content = "Ocurrió un error, inténtelo más tarde.";
+                }
+                registerAlert.updateAlert(content, true, "danger");
             });
     };
 
@@ -61,6 +72,11 @@ export const Register = () => {
                                     <h4 className="card-title text-center my-4">
                                         Crea tu cuenta para comenzar
                                     </h4>
+                                    <Alert
+                                        type={registerAlert.type}
+                                        visible={registerAlert.visible}
+                                        content={registerAlert.content}
+                                    />
                                     <div className="input-group my-4">
                                         <span
                                             className="input-group-text justify-content-center w-35"
