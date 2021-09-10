@@ -32,7 +32,7 @@ export const Login = () => {
 
     return (
         <ProtectedRoute type="public">
-            <div className="container-fluid color_bg">
+            <div className="container-fluid">
                 <div className="container d-flex justify-content-center align-items-center h_100">
                     <div className="row">
                         <div className="col-12 col-sm-12 col-md-6 text-center my-5">
@@ -43,7 +43,7 @@ export const Login = () => {
                                 className="img-fluid"
                             />
                         </div>
-                        <div className="col-12 col-sm-12 col-md-6 d-flex justify-content-center ">
+                        <div className="col-12 col-sm-12 col-md-6 d-flex justify-content-center align-items-center ">
                             <div className="card w-100">
                                 <div className="card-body">
                                     <h1 className="card-title text-center my-4">
@@ -60,7 +60,7 @@ export const Login = () => {
                                     <form onSubmit={login}>
                                         <div className="input-group my-4">
                                             <span
-                                                className="input-group-text justify-content-center w-35"
+                                                className="input-group-text justify-content-center align-items-center w-35"
                                                 id="email"
                                             >
                                                 Correo
@@ -78,7 +78,7 @@ export const Login = () => {
                                         </div>
                                         <div className="input-group my-4">
                                             <span
-                                                className="input-group-text justify-content-center w-35"
+                                                className="input-group-text justify-content-center align-items-center w-35"
                                                 id="password"
                                             >
                                                 Contraseña

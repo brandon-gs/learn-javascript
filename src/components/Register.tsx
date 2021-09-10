@@ -51,7 +51,7 @@ export const Register = () => {
     };
 
     return (
-        <div className="container-fluid color_bg">
+        <div className="container-fluid">
             <div className="container d-flex justify-content-center align-items-center h_100">
                 <div className="row">
                     <div className="col-12 col-sm-12 col-md-6 text-center my-4">
