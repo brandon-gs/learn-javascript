@@ -1,4 +1,5 @@
 import LoginPage from "../pages/LoginPage";
+import ProblemPage from "../pages/ProblemPage";
 import ProblemsPage from "../pages/ProblemsPage";
 import RegisterPage from "../pages/RegisterPage";
 
@@ -22,6 +23,10 @@ const pages: RoutePage[] = [
     {
         path: "/problems",
         component: ProblemsPage,
+    },
+    {
+        path: "/:course/:problem",
+        component: ProblemPage,
     },
 ];
 

@@ -13,23 +13,26 @@ export const Navbar = () => {
     };
 
     return (
-        <header>
-            <nav className="navbar navbar-light bg-light">
-                <div className="container-fluid">
-                    <span className="navbar-brand mb-0 h1">
-                        Aprende JavaScript
-                    </span>
-                    <div className="d-flex">
-                        <button
-                            className="btn btn-warning"
-                            type="button"
-                            onClick={logOut}
-                        >
-                            Cerrar sesión
-                        </button>
+        <>
+            <header>
+                <nav className="navbar navbar-dark color_bg fixed-top">
+                    <div className="container-fluid">
+                        <span className="navbar-brand mb-0 h1">
+                            Aprende JavaScript
+                        </span>
+                        <div className="d-flex">
+                            <button
+                                className="btn btn-warning"
+                                type="button"
+                                onClick={logOut}
+                            >
+                                Cerrar sesión
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </header>
+                </nav>
+            </header>
+            <div style={{ height: 48 }} />
+        </>
     );
 };
