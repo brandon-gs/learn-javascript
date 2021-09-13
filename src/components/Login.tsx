@@ -43,7 +43,7 @@ export const Login = () => {
                                 className="img-fluid"
                             />
                         </div>
-                        <div className="col-12 col-sm-12 col-md-6 d-flex justify-content-center ">
+                        <div className="col-12 col-sm-12 col-md-6 d-flex justify-content-center align-items-center ">
                             <div className="card w-100">
                                 <div className="card-body">
                                     <h1 className="card-title text-center my-4">
@@ -60,7 +60,7 @@ export const Login = () => {
                                     <form onSubmit={login}>
                                         <div className="input-group my-4">
                                             <span
-                                                className="input-group-text justify-content-center w-35"
+                                                className="input-group-text justify-content-center align-items-center w-35"
                                                 id="email"
                                             >
                                                 Correo
@@ -78,7 +78,7 @@ export const Login = () => {
                                         </div>
                                         <div className="input-group my-4">
                                             <span
-                                                className="input-group-text justify-content-center w-35"
+                                                className="input-group-text justify-content-center align-items-center w-35"
                                                 id="password"
                                             >
                                                 Contraseña
@@ -97,13 +97,13 @@ export const Login = () => {
                                         <div className="d-flex justify-content-center align-items-center">
                                             <button
                                                 type="submit"
-                                                className="btn btn-outline-primary mx-2 my-4"
+                                                className="btn btn-primary mx-2 my-4"
                                             >
                                                 Iniciar sesión
                                             </button>
                                             <Link
                                                 to="/register"
-                                                className="btn btn-outline-secondary my-4"
+                                                className="btn btn-secondary my-4"
                                             >
                                                 Registrarse
                                             </Link>

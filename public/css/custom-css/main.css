@@ -1,5 +1,6 @@
 .h_100 {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
 }
 
 .color_bg {
@@ -7,8 +8,16 @@
 }
 
 .bg {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+    background-image: url(../../fondo.png);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    text-align: center;
 }
 
 .w-35 {
@@ -18,4 +27,18 @@
 .count-exercise {
     display: flex;
     justify-content: space-between;
+}
+
+@media only screen and (max-width: 764px) {
+    .bg {
+        background-image: url(../../fondo-mobile.png);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 40px;
+    }
 }
