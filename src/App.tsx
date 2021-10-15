@@ -8,10 +8,14 @@ function App() {
 
     return (
         <AuthProvider sdk={auth}>
-            <Router>
+            <Router basename={process.env.PUBLIC_URL}>
                 <Switch>
-                    {pages.map((page) => (
-                        <Route exact key={`page-${page.path}`} {...page} />
+                    {pages.map((page, index) => (
+                        <Route
+                            exact={index === 0}
+                            key={`page-${page.path}`}
+                            {...page}
+                        />
                     ))}
                 </Switch>
             </Router>

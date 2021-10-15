@@ -147,6 +147,9 @@ export default function ProblemPage() {
                 <button onClick={showResult} className="buttonTests">
                     Ejecutar pruebas
                 </button>
+                <button onClick={() => setCode("")} className="buttonTests">
+                    Reiniciar código
+                </button>
             </section>
             <div style={{ display: "grid", gridTemplateRows: "72% 28%" }}>
                 <section
