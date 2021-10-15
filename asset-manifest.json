@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/learn-javascript/static/css/main.fd0db65f.chunk.css",
+    "main.js": "/learn-javascript/static/js/main.b84a557d.chunk.js",
+    "main.js.map": "/learn-javascript/static/js/main.b84a557d.chunk.js.map",
+    "runtime-main.js": "/learn-javascript/static/js/runtime-main.faa8ab27.js",
+    "runtime-main.js.map": "/learn-javascript/static/js/runtime-main.faa8ab27.js.map",
+    "static/css/2.5a986fe2.chunk.css": "/learn-javascript/static/css/2.5a986fe2.chunk.css",
+    "static/js/2.e491796e.chunk.js": "/learn-javascript/static/js/2.e491796e.chunk.js",
+    "static/js/2.e491796e.chunk.js.map": "/learn-javascript/static/js/2.e491796e.chunk.js.map",
+    "static/js/3.2e1dc09b.chunk.js": "/learn-javascript/static/js/3.2e1dc09b.chunk.js",
+    "static/js/3.2e1dc09b.chunk.js.map": "/learn-javascript/static/js/3.2e1dc09b.chunk.js.map",
+    "index.html": "/learn-javascript/index.html",
+    "static/css/2.5a986fe2.chunk.css.map": "/learn-javascript/static/css/2.5a986fe2.chunk.css.map",
+    "static/css/main.fd0db65f.chunk.css.map": "/learn-javascript/static/css/main.fd0db65f.chunk.css.map",
+    "static/js/2.e491796e.chunk.js.LICENSE.txt": "/learn-javascript/static/js/2.e491796e.chunk.js.LICENSE.txt",
+    "static/media/comentar-tu-codigo-de-javascript.md": "/learn-javascript/static/media/comentar-tu-codigo-de-javascript.2fd8ff0c.md",
+    "static/media/img-login.e206abfb.svg": "/learn-javascript/static/media/img-login.e206abfb.svg",
+    "static/media/img-register.233eef88.svg": "/learn-javascript/static/media/img-register.233eef88.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.faa8ab27.js",
+    "static/css/2.5a986fe2.chunk.css",
+    "static/js/2.e491796e.chunk.js",
+    "static/css/main.fd0db65f.chunk.css",
+    "static/js/main.b84a557d.chunk.js"
+  ]
+}
