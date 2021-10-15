@@ -1,0 +1,35 @@
+.codemirror {
+    height: 100%;
+}
+
+.CodeMirror {
+    height: 100%;
+}
+
+.buttonTests {
+    background-color: #2764a7;
+    color: #fff;
+    border: none;
+    padding: 8px 0;
+    cursor: pointer;
+    width: 100%;
+    letter-spacing: 2px;
+    font-weight: 500;
+    transition-property: "background";
+    transition-duration: 0.2s;
+}
+
+.buttonTests:hover {
+    background-color: #2c7ace;
+}
+
+#console p {
+    margin: 0;
+}
+
+#console {
+    font-family: "Menlo", "Monaco", "Consolas", "Courier New", monospace;
+    line-height: 1.42857143;
+    background-color: #2a2a40;
+    color: #fff;
+}

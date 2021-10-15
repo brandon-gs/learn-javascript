@@ -1,0 +1,25 @@
+.instruction {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.instruction p {
+    margin: 0;
+}
+
+.instruction-icon {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    /* color: #212529; */
+    color: #6c757d;
+    align-items: center;
+    height: inherit;
+    padding-right: 8px;
+}
+
+.instruction-icon svg {
+    color: #6c757d;
+}
