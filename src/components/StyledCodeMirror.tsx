@@ -1,6 +1,7 @@
 // Codemirror utils
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material-darker.css";
+import "codemirror/theme/darcula.css";
 import "codemirror/mode/javascript/javascript";
 // Components
 import { Controlled } from "react-codemirror2";
@@ -25,7 +26,7 @@ export default function CodeMirror({
                 className="codemirror"
                 options={{
                     mode: "javascript",
-                    theme: "material-darker",
+                    theme: "darcula",
                     addModeClass: true,
                     lineNumbers: true,
                     autofocus: true,

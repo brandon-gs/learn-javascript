@@ -22,7 +22,7 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
-    color: #608b4e;
+    color: #55b92a;
 }
 
 .code-description,
@@ -33,4 +33,8 @@ code {
 .code-terciary code {
     background-color: rgba(153, 201, 255, 0.3);
     color: white !important;
+}
+
+.cm-s-darcula span.cm-def {
+    font-style: normal !important;
 }

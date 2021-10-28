@@ -1,4 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
     const logOut = () => {
@@ -17,9 +18,11 @@ export const Navbar = () => {
             <header>
                 <nav className="navbar navbar-dark color_bg fixed-top">
                     <div className="container-fluid">
-                        <span className="navbar-brand mb-0 h1">
-                            Aprende JavaScript
-                        </span>
+                        <Link className="nav-link active" to="/">
+                            <span className="navbar-brand mb-0 h1">
+                                Aprende JavaScript
+                            </span>
+                        </Link>
                         <div className="d-flex">
                             <button
                                 className="btn btn-warning"

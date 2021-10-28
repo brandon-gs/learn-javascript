@@ -33,4 +33,5 @@
     line-height: 1.42857143;
     background-color: #2a2a40;
     color: #fff;
+    overflow-y: scroll;
 }

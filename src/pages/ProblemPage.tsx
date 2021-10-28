@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import Markdown from "markdown-to-jsx";
+import Markdown from "react-markdown";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import { darcula as dark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import courses, { CourseData } from "../utils/courses";
 import StyledCodeMirror from "../components/StyledCodeMirror";
 import useConsole from "../hooks/useConsole";
@@ -8,6 +10,8 @@ import { createContext, Script } from "vm";
 import { strict as assert } from "assert";
 import tests from "../docs/test";
 import Instruction from "../components/Instruction";
+import { Navbar } from "../components/Navbar";
+import rehypeRaw from "rehype-raw";
 
 export default function ProblemPage() {
     // We can use the `useParams` hook here to access
@@ -109,70 +113,103 @@ export default function ProblemPage() {
     }
 
     return (
-        <div
-            style={{
-                display: "grid",
-                gridTemplateColumns: "40% 60%",
-                height: "100vh",
-                maxHeight: "100vh",
-            }}
-        >
-            <section
-                id="information"
+        <>
+            <Navbar />
+            <div
                 style={{
-                    gridRow: 1,
-                    overflowY: "scroll",
-                    padding: 8,
-                    background: "#1b1b32",
-                    color: "#FFF",
+                    display: "grid",
+                    gridTemplateColumns: "40% 60%",
+                    height: "calc(100vh - 56px)",
+                    maxHeight: "100vh",
+                    marginTop: 8,
                 }}
             >
-                <h1 style={{ textAlign: "center", fontSize: 24 }}>
-                    {currentProblem[0].problemName}
-                </h1>
-                <Markdown>{post}</Markdown>
-                {currentTest.instructions.map(
-                    (instruction: string, index: number) => {
-                        return (
-                            <Instruction
-                                key={`instruction-${index}`}
-                                executed={executed}
-                                instruction={instruction}
-                                index={index}
-                                solvedTests={solvedTests}
-                            />
-                        );
-                    }
-                )}
-                <button onClick={showResult} className="buttonTests">
-                    Ejecutar pruebas
-                </button>
-                <button onClick={() => setCode("")} className="buttonTests">
-                    Reiniciar código
-                </button>
-            </section>
-            <div style={{ display: "grid", gridTemplateRows: "72% 28%" }}>
                 <section
-                    id="editor"
+                    id="information"
                     style={{
-                        height: "100%",
-                        borderLeft: "solid 1px black",
+                        gridRow: 1,
+                        overflowY: "scroll",
+                        padding: 16,
+                        paddingTop: 32,
+                        background: "#1b1b32",
+                        color: "#FFF",
                     }}
                 >
-                    <StyledCodeMirror code={code} setCode={setCode} />
+                    <h1 style={{ textAlign: "center", fontSize: 24 }}>
+                        {currentProblem[0].problemName}
+                    </h1>
+                    <Markdown
+                        rehypePlugins={[rehypeRaw]}
+                        components={{
+                            code({
+                                node,
+                                inline,
+                                className,
+                                children,
+                                ...props
+                            }) {
+                                return !inline ? (
+                                    <SyntaxHighlighter
+                                        children={String(children).replace(
+                                            /\n$/,
+                                            ""
+                                        )}
+                                        style={dark}
+                                        language="javascript"
+                                    />
+                                ) : (
+                                    <code className={className} {...props}>
+                                        {children}
+                                    </code>
+                                );
+                            },
+                        }}
+                    >
+                        {post}
+                    </Markdown>
+                    {currentTest.instructions.map(
+                        (instruction: string, index: number) => {
+                            return (
+                                <Instruction
+                                    key={`instruction-${index}`}
+                                    executed={executed}
+                                    instruction={instruction}
+                                    index={index}
+                                    solvedTests={solvedTests}
+                                />
+                            );
+                        }
+                    )}
+                    <button onClick={showResult} className="buttonTests">
+                        Ejecutar pruebas
+                    </button>
+                    <button onClick={() => setCode("")} className="buttonTests">
+                        Reiniciar código
+                    </button>
                 </section>
-                <section
-                    ref={consoleRef}
-                    id="console"
-                    style={{
-                        borderTop: "solid 1px black",
-                        borderLeft: "solid 1px black",
-                        paddingTop: 8,
-                        paddingLeft: 8,
-                    }}
-                ></section>
+                <div style={{ display: "grid", gridTemplateRows: "72% 28%" }}>
+                    <section
+                        id="editor"
+                        style={{
+                            height: "100%",
+                            borderLeft: "solid 1px black",
+                        }}
+                    >
+                        <StyledCodeMirror code={code} setCode={setCode} />
+                    </section>
+                    <section
+                        ref={consoleRef}
+                        id="console"
+                        style={{
+                            borderTop: "solid 1px black",
+                            borderLeft: "solid 1px black",
+                            paddingTop: 8,
+                            paddingLeft: 8,
+                        }}
+                    ></section>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
