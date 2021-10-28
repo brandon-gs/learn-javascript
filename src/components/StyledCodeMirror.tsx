@@ -26,7 +26,7 @@ export default function CodeMirror({
                 className="codemirror"
                 options={{
                     mode: "javascript",
-                    theme: "darcula",
+                    theme: "material-darker",
                     addModeClass: true,
                     lineNumbers: true,
                     autofocus: true,

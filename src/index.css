@@ -38,3 +38,7 @@ code {
 .cm-s-darcula span.cm-def {
     font-style: normal !important;
 }
+
+.code-fsize {
+    font-size: 16px !important;
+}

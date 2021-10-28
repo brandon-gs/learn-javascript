@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import Markdown from "react-markdown";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import { darcula as dark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { anOldHope as dark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import courses, { CourseData } from "../utils/courses";
 import StyledCodeMirror from "../components/StyledCodeMirror";
 import useConsole from "../hooks/useConsole";
@@ -154,7 +154,8 @@ export default function ProblemPage() {
                                             /\n$/,
                                             ""
                                         )}
-                                        style={dark}
+                                        style={{ ...dark }}
+                                        className="code-fsize"
                                         language="javascript"
                                     />
                                 ) : (

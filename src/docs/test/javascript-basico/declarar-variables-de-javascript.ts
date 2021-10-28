@@ -1,12 +1,15 @@
 const tests = (code: string) => {
+    const errorMessage =
+        "El código no tiene una variable definida con var llamada miNombre";
+
     return `
 
 		try {
-			assert(!miNombre, "El código no tiene una variable llamada miNombre");
+			assert(!miNombre && /var\\s+miNombre/.test("${code}"), "${errorMessage}");
 			solvedTest.push(0);
 		}
 		catch(e) {
-			assert(false, "El código no tiene una variable llamada miNombre");
+			assert(false, "${errorMessage}");
 		}
 
 		`;
