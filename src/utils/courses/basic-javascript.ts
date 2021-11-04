@@ -63,7 +63,7 @@ export const basicJavascriptProblems: Problems[] = [
     },
     {
         problemName: "Dividir un décimal entre otro con javascript",
-        problemUri: "multiplicar-dos-decimales-con-javascript",
+        problemUri: "dividir-un-décimal-entre-otro-con-javascript",
     },
     {
         problemName: "Buscar el residuo en Javascript ",
