@@ -25,7 +25,7 @@ const pages: RoutePage[] = [
         component: ProblemsPage,
     },
     {
-        path: "/:course/:problem",
+        path: "/challenge/:course/:problem",
         component: ProblemPage,
     },
 ];

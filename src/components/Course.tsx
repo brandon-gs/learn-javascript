@@ -52,7 +52,7 @@ export default function Course({
                     >
                         {problems.map((problem) => (
                             <Link
-                                to={`/${titleUri}/${problem.problemUri}`}
+                                to={`challenge/${titleUri}/${problem.problemUri}`}
                                 key={problem.problemUri}
                                 className="list-group-item list-group-item-action"
                             >

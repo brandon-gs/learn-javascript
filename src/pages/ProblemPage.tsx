@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Markdown from "react-markdown";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { anOldHope as dark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 import courses, { CourseData } from "../utils/courses";
 import StyledCodeMirror from "../components/StyledCodeMirror";
 import useConsole from "../hooks/useConsole";
@@ -12,6 +13,26 @@ import tests from "../docs/test";
 import Instruction from "../components/Instruction";
 import { Navbar } from "../components/Navbar";
 import rehypeRaw from "rehype-raw";
+import ReactModal from "react-modal";
+import "../styles/ProblemsPage.css";
+
+// Config react modal
+const customStyles = {
+    content: {
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)",
+    },
+    overlay: {
+        backgroundColor: "rgba(0,0,0,0.7)",
+        zIndex: 10000000000,
+    },
+};
+
+ReactModal.setAppElement("#root");
 
 export default function ProblemPage() {
     // We can use the `useParams` hook here to access
@@ -19,8 +40,12 @@ export default function ProblemPage() {
     const { consoleRef, addToConsole, clearConsole } = useConsole();
     const { course, problem } = useParams<ParamsProblemPage>();
 
+    const history = useHistory();
+
     const currentTest = tests[course][problem];
 
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [nextLesson, setNextLesson] = useState<string>("");
     const [code, setCode] = useState<string>("");
     const [post, setPost] = useState<string>("");
     const [executed, setExecuted] = useState<boolean>(false);
@@ -31,7 +56,7 @@ export default function ProblemPage() {
             courses
                 .filter(filterCurrentCourse(course))[0]
                 .problems.filter(
-                    (currentProblem) => currentProblem.problemUri === problem
+                    (currentproblem) => currentproblem.problemUri === problem
                 ),
         [course, problem]
     );
@@ -45,6 +70,13 @@ export default function ProblemPage() {
         }
         return 0;
     }, [course, problem]);
+
+    const firstConsoleMessage = () => {
+        clearConsole();
+        addToConsole("/**");
+        addToConsole("* Su salida de prueba ira aquí");
+        addToConsole("*/");
+    };
 
     // Show result in console
     const showResult = () => {
@@ -72,7 +104,16 @@ export default function ProblemPage() {
             script.runInContext(vmContext);
             addToConsole("// Pruebas completadas");
             setSolvedTests(vmContext.solvedTest);
-            console.log("go to next problem: ", indexProblem + 1);
+            // get next problem
+            const nextProblemIndex = indexProblem + 1;
+            const courseProblems = courses.filter(
+                filterCurrentCourse(course)
+            )[0].problems;
+            if (nextProblemIndex < courseProblems.length) {
+                const nextProblem = courseProblems[indexProblem + 1];
+                setIsOpen(true);
+                setNextLesson(`/challenge/${course}/${nextProblem.problemUri}`);
+            }
         } catch (e) {
             setSolvedTests(vmContext.solvedTest);
             addToConsole(e);
@@ -91,10 +132,7 @@ export default function ProblemPage() {
 
     // Load a default console message
     useEffect(() => {
-        clearConsole();
-        addToConsole("/**");
-        addToConsole("* Su salida de prueba ira aquí");
-        addToConsole("*/");
+        firstConsoleMessage();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -115,6 +153,37 @@ export default function ProblemPage() {
     return (
         <>
             <Navbar />
+            <ReactModal isOpen={isOpen} style={customStyles}>
+                <div className="modal-container">
+                    <BsFillCheckCircleFill
+                        color="#198754"
+                        style={{
+                            width: 160,
+                            height: 160,
+                        }}
+                    />
+                    <p>Lección completada</p>
+                    <hr></hr>
+                    <button
+                        onClick={() => {
+                            // reset state and redirect to next lesson/problem
+                            firstConsoleMessage();
+                            setCode("");
+                            setSolvedTests([]);
+                            setIsOpen(false);
+                            setExecuted(false);
+                            history.push(nextLesson);
+                        }}
+                        className="btn btn-primary"
+                        style={{
+                            backgroundColor: "#2764a7",
+                            borderColor: "#2764a7",
+                        }}
+                    >
+                        Ir a la siguiente lección
+                    </button>
+                </div>
+            </ReactModal>
             <div
                 style={{
                     display: "grid",

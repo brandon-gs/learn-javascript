@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { Switch, Route, HashRouter } from "react-router-dom";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "reactfire";
 import pages from "./utils/pages";
 
@@ -8,7 +8,7 @@ function App() {
 
     return (
         <AuthProvider sdk={auth}>
-            <HashRouter>
+            <BrowserRouter basename="/">
                 <Switch>
                     {pages.map((page, index) => (
                         <Route
@@ -18,7 +18,7 @@ function App() {
                         />
                     ))}
                 </Switch>
-            </HashRouter>
+            </BrowserRouter>
         </AuthProvider>
     );
 }
