@@ -92,18 +92,24 @@ export const Login = () => {
                                             }
                                         />
                                     </div>
-                                    <div className="d-flex justify-content-center align-items-center">
+                                    <div className="d-flex justify-content-around my-4">
                                         <button
                                             type="submit"
-                                            className="btn btn-primary mx-2 my-4"
+                                            className="btn btn-primary"
                                         >
                                             Iniciar sesión
                                         </button>
                                         <Link
                                             to="/register"
-                                            className="btn btn-secondary my-4"
+                                            className="btn btn-secondary"
                                         >
                                             Registrarse
+                                        </Link>
+                                        <Link
+                                            to="/forgotPassword"
+                                            className="btn btn-warning"
+                                        >
+                                            Recuperar contraseña
                                         </Link>
                                     </div>
                                 </form>
