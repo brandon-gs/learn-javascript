@@ -10,7 +10,7 @@
 .bg {
     height: 100%;
     width: 100%;
-    background-image: url(../../fondo.png);
+    background-image: ("./img/fondo.png");
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -31,7 +31,7 @@
 
 @media only screen and (max-width: 764px) {
     .bg {
-        background-image: url(../../fondo-mobile.png);
+        background-image: url("../public/img/fondo-mobile.png");
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

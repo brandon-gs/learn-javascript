@@ -3,6 +3,7 @@ import imgRegister from "../assets/img/img-register.svg";
 import { getAuth, createUserWithEmailAndPassword } from "@firebase/auth";
 import useAlert from "../hooks/useAlert";
 import Alert from "./Alert";
+import { Link } from "react-router-dom";
 
 interface iDataForm {
     email: string;
@@ -122,6 +123,10 @@ export const Register = () => {
                                         >
                                             Crear cuenta
                                         </button>
+                                    </div>
+                                    <hr />
+                                    <div className="d-flex justify-content-center align-items-center">
+                                        <Link to="/">Iniciar sesión</Link>
                                     </div>
                                 </form>
                             </div>
