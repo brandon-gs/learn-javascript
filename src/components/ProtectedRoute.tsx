@@ -1,5 +1,6 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
 
 interface ProtectedRouteProps {
@@ -30,14 +31,30 @@ export default function ProtectedRoute({
                 history.push("/");
             } else {
                 if (mounted) {
-                    setLoading(false);
+                    setTimeout(() => {
+                        if (loading) {
+                            setLoading(false);
+                        }
+                    }, 2000);
                 }
             }
         });
         return () => {
             mounted = false;
         };
-    }, [history, type, auth]);
+    }, [history, type, auth, loading]);
 
-    return loading ? <div>Loading...</div> : <>{children}</>;
+    return loading ? (
+        <div style={loaderStyles}>
+            <Loader type="Audio" color="#2764a7" height={160} width={160} />
+        </div>
+    ) : (
+        <>{children}</>
+    );
 }
+
+const loaderStyles: React.CSSProperties = {
+    height: "100vh",
+    display: "grid",
+    placeItems: "center",
+};

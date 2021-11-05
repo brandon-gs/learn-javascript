@@ -3,8 +3,6 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "reactfire";
 import pages from "./utils/pages";
 
-import "./App.css";
-
 function App() {
     const auth = getAuth();
 

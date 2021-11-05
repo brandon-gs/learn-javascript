@@ -12,7 +12,7 @@ export default function ProblemsPage() {
             >
                 <h1>Javascript</h1>
                 <img
-                    src="./img/javascript.jpeg"
+                    src="/learn-javascript/img/javascript.jpeg"
                     alt="Logo javascript"
                     className="javascript-logo"
                 ></img>
