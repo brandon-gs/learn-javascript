@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import useAlert from "../hooks/useAlert";
+import { Tooltip } from "react-tippy";
 
+import "react-tippy/dist/tippy.css";
 import imgForgot from "../assets/img/forgot_password.svg";
-import Alert from "./Alert";
+import tooltip from "../assets/img/tooltip.png";
 
 export const ForgotPassword = () => {
     const [email, setEmail] = useState("");
@@ -44,57 +46,20 @@ export const ForgotPassword = () => {
                             <div className="card-body">
                                 <h1 className="card-title text-center fs-2 my-4">
                                     Recuperar contraseña!
+                                    <span
+                                        className="mx-2"
+                                        style={{ cursor: "pointer" }}
+                                    >
+                                        <Tooltip
+                                            title="Coloca el correo con el que te registraste!"
+                                            position="top"
+                                            trigger="mouseenter"
+                                            animation="shift"
+                                        >
+                                            <img src={tooltip} alt="FreePick" />
+                                        </Tooltip>
+                                    </span>
                                 </h1>
-                                <h3 className="card-title text-center my-4">
-                                    Ingresa tu correo
-                                    <button
-                                        type="button"
-                                        className="btn btn-outline-dark btn-sm mx-2"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal"
-                                        title="Info"
-                                    >
-                                        ?
-                                    </button>
-                                    <div
-                                        className="modal fade"
-                                        id="exampleModal"
-                                        tabIndex={-1}
-                                        aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true"
-                                    >
-                                        <div className="modal-dialog">
-                                            <div className="modal-content">
-                                                <div className="modal-header">
-                                                    <h5
-                                                        className="modal-title fs-4"
-                                                        id="exampleModalLabel"
-                                                    >
-                                                        Info
-                                                    </h5>
-                                                    <button
-                                                        type="button"
-                                                        className="btn-close fs-4"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                    ></button>
-                                                </div>
-                                                <div className="modal-body fs-6">
-                                                    El correo debe ser con el
-                                                    que te registraste,
-                                                    posteriormente revisa tu
-                                                    correo para seguir las
-                                                    indicaciones
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </h3>
-                                <Alert
-                                    type={type}
-                                    visible={visible}
-                                    content={content}
-                                />
                                 <form onSubmit={sendEmail}>
                                     <div className="input-group my-4">
                                         <span
