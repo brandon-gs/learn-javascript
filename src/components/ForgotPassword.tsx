@@ -7,6 +7,7 @@ import { Tooltip } from "react-tippy";
 import "react-tippy/dist/tippy.css";
 import imgForgot from "../assets/img/forgot_password.svg";
 import tooltip from "../assets/img/tooltip.png";
+import Alert from "./Alert";
 
 export const ForgotPassword = () => {
     const [email, setEmail] = useState("");
@@ -46,20 +47,26 @@ export const ForgotPassword = () => {
                             <div className="card-body">
                                 <h1 className="card-title text-center fs-2 my-4">
                                     Recuperar contraseña!
-                                    <span
-                                        className="mx-2"
-                                        style={{ cursor: "pointer" }}
-                                    >
+                                    <span className="mx-2">
                                         <Tooltip
                                             title="Coloca el correo con el que te registraste!"
                                             position="top"
                                             trigger="mouseenter"
                                             animation="shift"
                                         >
-                                            <img src={tooltip} alt="FreePick" />
+                                            <img
+                                                src={tooltip}
+                                                alt="FreePick"
+                                                width={24}
+                                            />
                                         </Tooltip>
                                     </span>
                                 </h1>
+                                <Alert
+                                    content={content}
+                                    visible={visible}
+                                    type={type}
+                                />
                                 <form onSubmit={sendEmail}>
                                     <div className="input-group my-4">
                                         <span

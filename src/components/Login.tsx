@@ -23,6 +23,7 @@ export const Login = () => {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
+            localStorage.setItem("email", email);
             history.push("/problems");
         } catch (e) {
             updateAlert("Usuario o contraseña incorrectos", true, "danger");

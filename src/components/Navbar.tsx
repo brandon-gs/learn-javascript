@@ -6,6 +6,7 @@ export const Navbar = () => {
         const auth = getAuth();
         signOut(auth)
             .then(() => {
+                localStorage.removeItem("email");
                 console.log("logout");
             })
             .catch((error) => {
@@ -20,7 +21,7 @@ export const Navbar = () => {
                     <div className="container-fluid">
                         <Link className="nav-link active" to="/">
                             <span className="navbar-brand mb-0 h1">
-                                Aprende JavaScript
+                                ScriptMash
                             </span>
                         </Link>
                         <div className="d-flex">

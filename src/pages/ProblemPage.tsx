@@ -1,56 +1,65 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import Markdown from "react-markdown";
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import { anOldHope as dark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { BsFillCheckCircleFill } from "react-icons/bs";
 import courses, { CourseData } from "../utils/courses";
 import StyledCodeMirror from "../components/StyledCodeMirror";
 import useConsole from "../hooks/useConsole";
 import { createContext, Script } from "vm";
 import { strict as assert } from "assert";
 import tests from "../docs/test";
-import Instruction from "../components/Instruction";
 import { Navbar } from "../components/Navbar";
-import rehypeRaw from "rehype-raw";
-import ReactModal from "react-modal";
+import CoursesService, { Course } from "../services/courses";
 import "../styles/ProblemsPage.css";
-
-// Config react modal
-const customStyles = {
-    content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-    },
-    overlay: {
-        backgroundColor: "rgba(0,0,0,0.7)",
-        zIndex: 10000000000,
-    },
-};
-
-ReactModal.setAppElement("#root");
+import ProtectedRoute from "../components/ProtectedRoute";
+import Console from "../components/Console";
+import NextProblemModal from "../components/NextProblemModal";
+import ListInstructions from "../components/ListInstructions";
+import ProblemActions from "../components/ProblemActions";
+import LessonInformation from "../components/LessonInformation";
 
 export default function ProblemPage() {
+    const { consoleRef, addToConsole, clearConsole } = useConsole();
+    const informationRef = useRef<any>();
+
     // We can use the `useParams` hook here to access
     // the dynamic pieces of the URL.
-    const { consoleRef, addToConsole, clearConsole } = useConsole();
     const { course, problem } = useParams<ParamsProblemPage>();
 
+    // Allow go to other page
     const history = useHistory();
 
+    // Current test for the challenge
     const currentTest = tests[course][problem];
 
+    // Modal State
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [nextLesson, setNextLesson] = useState<string>("");
+    const [isLoadingModal, setIsLoadingModal] = useState<boolean>(false);
+    const openModal = () => setIsOpen(true);
+    const enableLoadingModal = () => setIsLoadingModal(true);
+    const disableLoadingModal = () => setIsLoadingModal(false);
+
+    // Code state
     const [code, setCode] = useState<string>("");
-    const [post, setPost] = useState<string>("");
+
+    // Current Lesson state
     const [executed, setExecuted] = useState<boolean>(false);
+    const [post, setPost] = useState<string>("");
+
+    // Next lesson state
+    const [nextLesson, setNextLesson] = useState<string>("");
     const [solvedTests, setSolvedTests] = useState<number[]>([]);
 
+    // Problems solved by the user, thess data are obtained from database
+    const [userProblems, setUserProblems] = useState<Course[]>([]);
+
+    // Scroll top information lesson section
+    const scrollTopInformationLesson = () => {
+        // Scroll lesson to top
+        if (informationRef.current) {
+            informationRef.current.scrollTop = 0;
+        }
+    };
+
+    // Obtain the current problem base on the URL params
     const currentProblem = useMemo(
         () =>
             courses
@@ -61,6 +70,7 @@ export default function ProblemPage() {
         [course, problem]
     );
 
+    // Get the index of the problem based on the current problem that was obtained from the URL params
     const indexProblem = useMemo(() => {
         const currentCourse = courses.filter(filterCurrentCourse(course))[0];
         for (let x = 0; x < currentCourse.problems.length; x++) {
@@ -71,6 +81,7 @@ export default function ProblemPage() {
         return 0;
     }, [course, problem]);
 
+    // Restart the console and put a default message
     const firstConsoleMessage = () => {
         clearConsole();
         addToConsole("/**");
@@ -79,7 +90,8 @@ export default function ProblemPage() {
     };
 
     // Show result in console
-    const showResult = () => {
+    const showResult = async () => {
+        // Config javascript engine and replace some functions
         let contextObj = {
             solvedTest: [],
             console: {
@@ -90,36 +102,87 @@ export default function ProblemPage() {
             assert,
         };
 
+        // Concatenate the user's code and test of the current problem code
         const codeWithTest =
             code +
             `
             ${currentTest.tests(code)}
-		`;
+		    `;
 
+        // Create a new script with the user's code + test's code
         const script = new Script(codeWithTest);
+
+        // Create a virtual javascript context with our configuration
         const vmContext = createContext(contextObj);
+
+        // Clear the console to show the user's code results
         clearConsole();
+
+        // Execute the user's code
         try {
             addToConsole("// Ejecutando pruebas");
+
+            // Run user's code + test's code
             script.runInContext(vmContext);
-            addToConsole("// Pruebas completadas");
+            // Get the conext of the user's code + test's code, it allow get variables from this code
+            // This is used to know how many test the user's code passed
             setSolvedTests(vmContext.solvedTest);
-            // get next problem
-            const nextProblemIndex = indexProblem + 1;
-            const courseProblems = courses.filter(
-                filterCurrentCourse(course)
-            )[0].problems;
-            if (nextProblemIndex < courseProblems.length) {
-                const nextProblem = courseProblems[indexProblem + 1];
-                setIsOpen(true);
-                setNextLesson(`/challenge/${course}/${nextProblem.problemUri}`);
+
+            addToConsole("// Pruebas completadas");
+
+            // open modal
+            openModal();
+
+            // Scroll lesson to top
+            scrollTopInformationLesson();
+
+            // Find if the user resolve the problem before
+            const findProblem = userProblems.filter(
+                (cproblem) =>
+                    cproblem.problem === problem && cproblem.course === course
+            );
+
+            // If problem is correct and it was save it in database skip save again
+            if (findProblem.length === 0) {
+                const email = localStorage.getItem("email");
+                if (email) {
+                    const courseProblem: Course = {
+                        user_email: email,
+                        course: course,
+                        problem: problem,
+                    };
+                    // Open modal and save the problem in the database
+                    enableLoadingModal();
+                    await CoursesService.create(courseProblem);
+                    disableLoadingModal();
+                }
             }
         } catch (e) {
             setSolvedTests(vmContext.solvedTest);
             addToConsole(e);
         }
+
         setExecuted(true);
     };
+
+    // Get Next Lesson
+    useEffect(() => {
+        // get next problem
+        const nextProblemIndex = indexProblem + 1;
+        const courseProblems = courses.filter(filterCurrentCourse(course))[0]
+            .problems;
+        if (nextProblemIndex < courseProblems.length) {
+            const nextProblem = courseProblems[indexProblem + 1];
+            setNextLesson(`/challenge/${course}/${nextProblem.problemUri}`);
+        }
+
+        scrollTopInformationLesson();
+
+        // Reset state
+        setSolvedTests([]);
+        setCode("");
+        setExecuted(false);
+    }, [course, indexProblem]);
 
     // Add messages to console
     useEffect(() => {
@@ -129,12 +192,6 @@ export default function ProblemPage() {
             }
         });
     });
-
-    // Load a default console message
-    useEffect(() => {
-        firstConsoleMessage();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     // Load md file
     useEffect(() => {
@@ -146,44 +203,43 @@ export default function ProblemPage() {
         });
     }, [course, problem]);
 
+    // Load all user problems
+    useEffect(() => {
+        const getUserProblems = async () => {
+            const email = localStorage.getItem("email");
+            if (email) {
+                const currentUserProblems = await CoursesService.getByEmail(
+                    email
+                );
+                setUserProblems(currentUserProblems);
+            }
+        };
+
+        getUserProblems();
+    }, []);
+
     if (currentProblem.length === 0) {
         return <div></div>;
     }
 
     return (
-        <>
+        <ProtectedRoute type="private">
             <Navbar />
-            <ReactModal isOpen={isOpen} style={customStyles}>
-                <div className="modal-container">
-                    <BsFillCheckCircleFill
-                        color="#198754"
-                        style={{
-                            width: 160,
-                            height: 160,
-                        }}
-                    />
-                    <p>Lección completada</p>
-                    <hr></hr>
-                    <button
-                        onClick={() => {
-                            // reset state and redirect to next lesson/problem
-                            firstConsoleMessage();
-                            setCode("");
-                            setSolvedTests([]);
-                            setIsOpen(false);
-                            setExecuted(false);
-                            history.push(nextLesson);
-                        }}
-                        className="btn btn-primary"
-                        style={{
-                            backgroundColor: "#2764a7",
-                            borderColor: "#2764a7",
-                        }}
-                    >
-                        Ir a la siguiente lección
-                    </button>
-                </div>
-            </ReactModal>
+            <NextProblemModal
+                isOpen={isOpen}
+                isLoadingModal={isLoadingModal}
+                setIsOpen={setIsOpen}
+                goToNextLesson={() => {
+                    // reset state and redirect to next lesson/problem
+                    firstConsoleMessage();
+                    setCode("");
+                    setSolvedTests([]);
+                    setIsOpen(false);
+                    setExecuted(false);
+                    history.push(nextLesson);
+                    scrollTopInformationLesson();
+                }}
+            />
             <div
                 style={{
                     display: "grid",
@@ -195,6 +251,7 @@ export default function ProblemPage() {
             >
                 <section
                     id="information"
+                    ref={informationRef}
                     style={{
                         gridRow: 1,
                         overflowY: "scroll",
@@ -207,79 +264,28 @@ export default function ProblemPage() {
                     <h1 style={{ textAlign: "center", fontSize: 24 }}>
                         {currentProblem[0].problemName}
                     </h1>
-                    <Markdown
-                        rehypePlugins={[rehypeRaw]}
-                        components={{
-                            code({
-                                node,
-                                inline,
-                                className,
-                                children,
-                                ...props
-                            }) {
-                                return !inline ? (
-                                    <SyntaxHighlighter
-                                        children={String(children).replace(
-                                            /\n$/,
-                                            ""
-                                        )}
-                                        style={{ ...dark }}
-                                        className="code-fsize"
-                                        language="javascript"
-                                    />
-                                ) : (
-                                    <code className={className} {...props}>
-                                        {children}
-                                    </code>
-                                );
-                            },
-                        }}
-                    >
-                        {post}
-                    </Markdown>
-                    {currentTest.instructions.map(
-                        (instruction: string, index: number) => {
-                            return (
-                                <Instruction
-                                    key={`instruction-${index}`}
-                                    executed={executed}
-                                    instruction={instruction}
-                                    index={index}
-                                    solvedTests={solvedTests}
-                                />
-                            );
-                        }
-                    )}
-                    <button onClick={showResult} className="buttonTests">
-                        Ejecutar pruebas
-                    </button>
-                    <button onClick={() => setCode("")} className="buttonTests">
-                        Reiniciar código
-                    </button>
+
+                    <LessonInformation post={post} />
+
+                    <ListInstructions
+                        executed={executed}
+                        instructions={currentTest.instructions}
+                        solvedTests={solvedTests}
+                    />
+
+                    {/* Buttons action */}
+                    <ProblemActions
+                        showResult={showResult}
+                        setCode={setCode}
+                        nextLesson={nextLesson}
+                    />
                 </section>
                 <div style={{ display: "grid", gridTemplateRows: "72% 28%" }}>
-                    <section
-                        id="editor"
-                        style={{
-                            height: "100%",
-                            borderLeft: "solid 1px black",
-                        }}
-                    >
-                        <StyledCodeMirror code={code} setCode={setCode} />
-                    </section>
-                    <section
-                        ref={consoleRef}
-                        id="console"
-                        style={{
-                            borderTop: "solid 1px black",
-                            borderLeft: "solid 1px black",
-                            paddingTop: 8,
-                            paddingLeft: 8,
-                        }}
-                    ></section>
+                    <StyledCodeMirror code={code} setCode={setCode} />
+                    <Console ref={consoleRef} />
                 </div>
             </div>
-        </>
+        </ProtectedRoute>
     );
 }
 

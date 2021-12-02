@@ -20,31 +20,39 @@ export default function CodeMirror({
     className = "",
 }: StyledCodeMirror) {
     return (
-        <div className={`codemirror ${className}`}>
-            <Controlled
-                value={code}
-                className="codemirror"
-                options={{
-                    mode: "javascript",
-                    theme: "material-darker",
-                    addModeClass: true,
-                    lineNumbers: true,
-                    autofocus: true,
-                    foldGutter: false,
-                    gutters: [],
-                    styleSelectedText: true,
-                    matchBrackets: true,
-                    autoCloseBrackets: true,
-                    lineWrapping: true,
-                    highlightSelectionMatches: {
-                        showToken: /\w/,
-                        annotateScrollbar: true,
-                    },
-                }}
-                onBeforeChange={(editor, data, value) => {
-                    setCode(value);
-                }}
-            />
-        </div>
+        <section
+            id="editor"
+            style={{
+                height: "100%",
+                borderLeft: "solid 1px black",
+            }}
+        >
+            <div className={`codemirror ${className}`}>
+                <Controlled
+                    value={code}
+                    className="codemirror"
+                    options={{
+                        mode: "javascript",
+                        theme: "material-darker",
+                        addModeClass: true,
+                        lineNumbers: true,
+                        autofocus: true,
+                        foldGutter: false,
+                        gutters: [],
+                        styleSelectedText: true,
+                        matchBrackets: true,
+                        autoCloseBrackets: true,
+                        lineWrapping: true,
+                        highlightSelectionMatches: {
+                            showToken: /\w/,
+                            annotateScrollbar: true,
+                        },
+                    }}
+                    onBeforeChange={(editor, data, value) => {
+                        setCode(value);
+                    }}
+                />
+            </div>
+        </section>
     );
 }

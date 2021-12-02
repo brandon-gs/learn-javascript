@@ -35,6 +35,7 @@ export const Register = () => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(`Data firebase... ${JSON.stringify(user)}`);
+                localStorage.setItem("email", email);
                 window.location.href = "/problems";
             })
             .catch((error) => {

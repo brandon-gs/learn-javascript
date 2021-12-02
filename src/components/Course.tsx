@@ -7,6 +7,7 @@ interface CourseProps {
     titleUri?: string;
     description?: string;
     problems?: Problems[];
+    dbProblems?: { course: string; problem: string; user_email: string }[];
 }
 
 export default function Course({
@@ -14,6 +15,7 @@ export default function Course({
     titleUri = "test",
     description = "Description prop",
     problems = [],
+    dbProblems = [],
 }: CourseProps) {
     const [showCourses, setShowCourses] = useState<boolean>(false);
 
@@ -41,7 +43,10 @@ export default function Course({
                     style={showCourses ? { background: "#bdc3c7" } : {}}
                 >
                     <span>{showCourses ? "Ocultar" : "Mostrar"} cursos</span>
-                    <span>1/{problems.length}</span>
+                    <span>
+                        {dbProblems.filter((p) => p.course === titleUri).length}
+                        /{problems.length}
+                    </span>
                 </button>
                 {showCourses && (
                     <div
@@ -50,15 +55,26 @@ export default function Course({
                         aria-labelledby="headingOne"
                         data-parent="#accordion"
                     >
-                        {problems.map((problem) => (
-                            <Link
-                                to={`challenge/${titleUri}/${problem.problemUri}`}
-                                key={problem.problemUri}
-                                className="list-group-item list-group-item-action"
-                            >
-                                {problem.problemName}
-                            </Link>
-                        ))}
+                        {problems.map((problem) => {
+                            const isResolved =
+                                dbProblems.filter(
+                                    (dbProblem) =>
+                                        dbProblem.problem === problem.problemUri
+                                ).length > 0;
+                            return (
+                                <Link
+                                    to={`challenge/${titleUri}/${problem.problemUri}`}
+                                    key={problem.problemUri}
+                                    className={`list-group-item list-group-item-action ${
+                                        isResolved
+                                            ? "bg-success text-white"
+                                            : ""
+                                    }`}
+                                >
+                                    {problem.problemName}
+                                </Link>
+                            );
+                        })}
                     </div>
                 )}
             </div>
