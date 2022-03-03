@@ -16,5 +16,3 @@ myVar = 5;
 Primero, este código crea una variable llamada `myVar`. Luego, el código asigna `5` a `myVar`. Ahora, si `myVar` aparece de nuevo en el código, el programa lo tratará como si fuera `5`.
 
 ### Instrucciones
-
-No debes cambiar el código por encima del comentario especificado.
