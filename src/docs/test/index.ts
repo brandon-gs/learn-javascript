@@ -1,4 +1,5 @@
 import javascriptBasico from "./javascript-basico";
+import estructurasDeDatos from "./estructuras-de-datos-basicas";
 
 export interface ProblemTest {
     tests: (code: string) => string;
@@ -7,6 +8,7 @@ export interface ProblemTest {
 
 const tests: Record<string, Record<string, ProblemTest>> = {
     "javascript-basico": javascriptBasico,
+    "estrucutras-de-datos-basicas": estructurasDeDatos,
 };
 
 export default tests;

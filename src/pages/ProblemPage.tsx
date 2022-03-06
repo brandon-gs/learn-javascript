@@ -179,6 +179,7 @@ export default function ProblemPage() {
         scrollTopInformationLesson();
 
         // Reset state
+        firstConsoleMessage();
         setSolvedTests([]);
         setCode("");
         setExecuted(false);

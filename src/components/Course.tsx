@@ -22,7 +22,7 @@ export default function Course({
     const updateShowCourse = () => setShowCourses((p) => !p);
 
     return (
-        <div className="card" style={{ width: "30rem" }}>
+        <div className="card" style={{ width: "30rem", marginTop: 8 }}>
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <pre
