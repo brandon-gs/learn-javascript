@@ -1,4 +1,5 @@
 import { basicJavascriptCourse } from "./courses/basic-javascript";
+import { basicJavascriptCourse as basicDataCourse } from "./courses/basic-data-structures";
 
 // interfaces
 export interface Problems {
@@ -14,6 +15,6 @@ export interface CourseData {
 }
 
 // Array with all courses
-const courses: CourseData[] = [basicJavascriptCourse];
+const courses: CourseData[] = [basicJavascriptCourse, basicDataCourse];
 
 export default courses;
