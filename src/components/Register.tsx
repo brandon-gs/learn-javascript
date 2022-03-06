@@ -127,7 +127,7 @@ export const Register = () => {
                                     </div>
                                     <hr />
                                     <div className="d-flex justify-content-center align-items-center">
-                                        <Link to="/">Iniciar sesión</Link>
+                                        <Link to="/" className="btn btn-secondary">Iniciar sesión</Link>
                                     </div>
                                 </form>
                             </div>

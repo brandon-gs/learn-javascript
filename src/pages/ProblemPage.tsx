@@ -153,7 +153,7 @@ export default function ProblemPage() {
                     };
                     // Open modal and save the problem in the database
                     enableLoadingModal();
-                    await CoursesService.create(courseProblem);
+                    //await CoursesService.create(courseProblem);
                     disableLoadingModal();
                 }
             }
