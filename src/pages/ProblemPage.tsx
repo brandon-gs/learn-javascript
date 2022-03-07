@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import courses, { CourseData } from "../utils/courses";
 import StyledCodeMirror from "../components/StyledCodeMirror";
@@ -28,6 +28,10 @@ export default function ProblemPage() {
     const history = useHistory();
 
     // Current test for the challenge
+    console.log(tests);
+    console.log(course);
+    console.log(tests[course]);
+
     const currentTest = tests[course][problem];
 
     // Modal State
@@ -82,12 +86,12 @@ export default function ProblemPage() {
     }, [course, problem]);
 
     // Restart the console and put a default message
-    const firstConsoleMessage = () => {
+    const firstConsoleMessage = useCallback(() => {
         clearConsole();
         addToConsole("/**");
         addToConsole("* Su salida de prueba ira aquí");
         addToConsole("*/");
-    };
+    }, [addToConsole, clearConsole]);
 
     // Show result in console
     const showResult = async () => {
@@ -183,7 +187,7 @@ export default function ProblemPage() {
         setSolvedTests([]);
         setCode("");
         setExecuted(false);
-    }, [course, indexProblem]);
+    }, [course, indexProblem, firstConsoleMessage]);
 
     // Add messages to console
     useEffect(() => {

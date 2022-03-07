@@ -1,53 +1,54 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 
 export default function useConsole() {
-  const consoleRef = useRef<HTMLDivElement>(null);
+    const consoleRef = useRef<HTMLDivElement>(null);
 
-  const add = (content: any) => {
-    const element = consoleRef.current;
+    const add = useCallback((content: any) => {
+        const element = consoleRef.current;
 
-    // Don't execute if hasnt a valid ref
-    if (!element) return;
+        // Don't execute if hasnt a valid ref
+        if (!element) return;
 
-    const node = document.createElement("div");
+        const node = document.createElement("div");
 
-    let text = String(content);
-    let parsed;
+        let text = String(content);
+        let parsed;
 
-    try {
-      parsed = String(JSON.parse(text));
-    } catch (e) {
-      parsed = text;
-    }
+        try {
+            parsed = String(JSON.parse(text));
+        } catch (e) {
+            parsed = text;
+        }
 
-    node.innerHTML =
-      "<p>" + htmlEncode(parsed).replace("/\\n/", "<br/>") + "</p>";
+        node.innerHTML =
+            "<p>" + htmlEncode(parsed).replace("/\\n/", "<br/>") + "</p>";
 
-    element.appendChild(node);
-    element.scrollTop = element.scrollHeight;
-  };
+        element.appendChild(node);
+        element.scrollTop = element.scrollHeight;
+    }, []);
 
-  const clear = () => {
-    const element = consoleRef.current;
+    const clear = useCallback(() => {
+        const element = consoleRef.current;
 
-    // Don't execute if hasnt a valid ref
-    if (!element) return;
+        // Don't execute if hasnt a valid ref
+        if (!element) return;
 
-    while (element.firstChild) {
-      consoleRef.current?.removeChild(element.firstChild);
-    }
-  };
+        while (element.firstChild) {
+            consoleRef.current?.removeChild(element.firstChild);
+        }
+    }, []);
 
-  return { consoleRef, addToConsole: add, clearConsole: clear };
+    return { consoleRef, addToConsole: add, clearConsole: clear };
 }
 
+// Helper functions
 function htmlEncode(str: any) {
-  if (typeof str !== "string") return str;
-  return str.replace(/[&<>"']/g, function ($0) {
-    return (
-      "&" +
-      { "&": "amp", "<": "lt", ">": "gt", '"': "quot", "'": "#39" }[$0] +
-      ";"
-    );
-  });
+    if (typeof str !== "string") return str;
+    return str.replace(/[&<>"']/g, function ($0) {
+        return (
+            "&" +
+            { "&": "amp", "<": "lt", ">": "gt", '"': "quot", "'": "#39" }[$0] +
+            ";"
+        );
+    });
 }
