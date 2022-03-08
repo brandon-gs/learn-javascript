@@ -22,12 +22,17 @@ export default function ProblemActions({
             <button onClick={() => setCode("")} className="buttonTests">
                 Reiniciar código
             </button>
-            <button
-                onClick={() => history.push(nextLesson)}
-                className="buttonTests"
-            >
-                Siguiente problema
-            </button>
+            {
+                nextLesson !== "" && (
+                    <button
+                        onClick={() => history.push(nextLesson)}
+                        className="buttonTests"
+                    >
+                        Siguiente problema
+                    </button>
+                )
+            }
+
         </>
     );
 }

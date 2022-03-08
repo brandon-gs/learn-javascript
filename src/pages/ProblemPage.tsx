@@ -28,10 +28,6 @@ export default function ProblemPage() {
     const history = useHistory();
 
     // Current test for the challenge
-    console.log(tests);
-    console.log(course);
-    console.log(tests[course]);
-
     const currentTest = tests[course][problem];
 
     // Modal State
@@ -157,7 +153,7 @@ export default function ProblemPage() {
                     };
                     // Open modal and save the problem in the database
                     enableLoadingModal();
-                    //await CoursesService.create(courseProblem);
+                    await CoursesService.create(courseProblem);
                     disableLoadingModal();
                 }
             }
