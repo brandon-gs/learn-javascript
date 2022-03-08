@@ -8,7 +8,7 @@ export interface ProblemTest {
 
 const tests: Record<string, Record<string, ProblemTest>> = {
     "javascript-basico": javascriptBasico,
-    "estrucutras-de-datos-basicas": estructurasDeDatos,
+    "estructuras-de-datos-basicas": estructurasDeDatos,
 };
 
 export default tests;

@@ -32,13 +32,13 @@ export default function Course({
                     {description}
                 </pre>
             </div>
-            <div id="accordion">
+            <div id={`accordion-${titleUri}`}>
                 <button
                     className="list-group-item list-group-item-action count-exercise"
                     data-toggle="collapse"
-                    data-target="#collapseOne"
+                    data-target={`#${titleUri}`}
                     aria-expanded="false"
-                    aria-controls="collapseOne"
+                    aria-controls={`${titleUri}`}
                     onClick={() => updateShowCourse()}
                     style={showCourses ? { background: "#bdc3c7" } : {}}
                 >
@@ -50,10 +50,10 @@ export default function Course({
                 </button>
                 {showCourses && (
                     <div
-                        id="collapseOne"
+                        id={`${titleUri}`}
                         className="collapse"
                         aria-labelledby="headingOne"
-                        data-parent="#accordion"
+                        data-parent={`#accordion-${titleUri}`}
                     >
                         {problems.map((problem) => {
                             const isResolved =
