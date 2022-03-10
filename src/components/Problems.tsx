@@ -23,7 +23,7 @@ export const Problems = () => {
 
     return (
         <>
-            <h2>Cursos</h2>
+        <h2 className="text-center">Cursos</h2>
             {courses.map((course) => (
                 <Course
                     key={course.title}

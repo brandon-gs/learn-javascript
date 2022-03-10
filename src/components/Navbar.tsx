@@ -18,7 +18,7 @@ export const Navbar = () => {
         <>
             <header>
                 <nav className="navbar navbar-dark color_bg fixed-top">
-                    <div className="container-fluid">
+                    <div className="container">
                         <Link className="nav-link active" to="/">
                             <span className="navbar-brand mb-0 h1">
                                 ScriptMash

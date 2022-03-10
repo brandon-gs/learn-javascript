@@ -1,39 +1,41 @@
 import { Navbar } from "../components/Navbar";
 import { Problems } from "../components/Problems";
+import { Articles } from "../components/Articles";
 import ProtectedRoute from "../components/ProtectedRoute";
+
+import img_main from "../assets/img/img_main.svg";
 
 export default function ProblemsPage() {
     return (
         <ProtectedRoute type="private">
             <Navbar />
-            <div
-                className="container d-flex flex-column justify-content-center align-items-center mb-5 mt-3"
-                style={{ width: "30rem" }}
-            >
-                <h1>Javascript</h1>
-                <img
-                    src="/learn-javascript/img/javascript.jpeg"
-                    alt="Logo javascript"
-                    className="javascript-logo"
-                ></img>
-                <p>
-                    Mientras que HTML y CSS controlan el contenido y el estilo
-                    de una página, JavaScript se utiliza para hacerla
-                    interactiva. En estos ejercicios de JavaScript, aprenderá
-                    los fundamentos de JavaScript, incluidas variables,
-                    matrices(arrays), objetos, bucles y funciones.
-                </p>
-                <p>
-                    Una vez que tenga los fundamentos, aplicará ese conocimiento
-                    creando algoritmos para manipular cadenas, factorializar
-                    números, entre otros.
-                </p>
-                <p>
-                    En el camino, también aprenderá dos estilos o paradigmas de
-                    programación importantes: Programación orientada a objetos
-                    (OOP) y Programación funcional (FP).
-                </p>
-                <Problems />
+            <div className="container my-3 p-5 rounded" style={{backgroundColor: "#ddd"}}>
+                <div className="row">
+                    <div className="col">
+                        <h1 className="my-3">SCRIPTMASH</h1>
+                        <p>Bienvenido a ScriptMash, la plataforma que te ayudará a aprender javascript de forma sencilla y gratuita, con instrucciones en <strong>español</strong> que te ayudará a comprender mejor los que se pide.</p>
+                        <p>Una vez que tengas los fundamentos, tocará aplicar esos conocimientos creando algoritmos para manipular cadenas, factorializar números, entre otros ejecicios preparados para ti.</p>
+                        <a href="#cursos" className="btn btn-primary color_bg">Comenzar</a>
+                    </div>
+                    <div className="col text-center">
+                        <img src={img_main} alt="img" width="400"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div className="container p-5 mb-3 rounded" style={{backgroundColor: "#ddd"}}>
+                <div className="row">
+                    <div className="col-8 d-flex justify-content-center">
+                        <div id="cursos">
+                            <Problems />
+                        </div>
+                    </div>
+                    <div className="col-4 d-flex justify-content-center">
+                        <div id="articulos">
+                            <Articles/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </ProtectedRoute>
     );
