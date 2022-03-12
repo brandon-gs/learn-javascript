@@ -4,6 +4,7 @@ import { Articles } from "../components/Articles";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 import img_main from "../assets/img/img_main.svg";
+import StripeForm from "../components/StripeForm";
 
 export default function ProblemsPage() {
     return (
@@ -28,6 +29,7 @@ export default function ProblemsPage() {
                     <div className="col-8 d-flex justify-content-center">
                         <div id="cursos">
                             <Problems />
+                            <StripeForm />
                         </div>
                     </div>
                     <div className="col-4 d-flex justify-content-center">
