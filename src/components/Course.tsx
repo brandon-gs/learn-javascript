@@ -42,7 +42,7 @@ export default function Course({
                     onClick={() => updateShowCourse()}
                     style={showCourses ? { background: "#bdc3c7" } : {}}
                 >
-                    <span>{showCourses ? "Ocultar" : "Mostrar"} cursos</span>
+                    <span>{showCourses ? "Ocultar" : "Mostrar"} lecciones</span>
                     <span>
                         {dbProblems.filter((p) => p.course === titleUri).length}
                         /{problems.length}

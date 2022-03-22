@@ -7,18 +7,27 @@ import "codemirror/mode/javascript/javascript";
 import { Controlled } from "react-codemirror2";
 // Styles
 import "../styles/Codemirror.css";
+import { useEffect, useState } from "react";
 
 interface StyledCodeMirror {
+    defaultCode: string;
     code: string;
     setCode: (newValue: string) => void;
     className?: string;
 }
 
 export default function CodeMirror({
+    defaultCode = "",
     code,
     setCode,
     className = "",
 }: StyledCodeMirror) {
+    const [currentCode, setCurrentCode] = useState<string>(defaultCode + code);
+
+    useEffect(() => {
+        setCurrentCode(code);
+    }, [code]);
+
     return (
         <section
             id="editor"
@@ -29,7 +38,7 @@ export default function CodeMirror({
         >
             <div className={`codemirror ${className}`}>
                 <Controlled
-                    value={code}
+                    value={currentCode}
                     className="codemirror"
                     options={{
                         mode: "javascript",

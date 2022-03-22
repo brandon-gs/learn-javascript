@@ -1,27 +1,26 @@
+import { useEffect, useState } from "react";
+import PostsService, { IPost } from "../services/posts";
+import Article from "./Article";
+
 export const Articles = () => {
+    const [articles, setArticles] = useState<IPost[]>([]);
+
+    const getPosts = async () => {
+        const _articles = await PostsService.getAll();
+        setArticles(_articles.splice(0, 3));
+    };
+
+    useEffect(() => {
+        getPosts();
+    }, []);
+
     return (
         <>
-        <h2 className="text-center">Artículos</h2>
+            <h2 className="text-center">Artículos</h2>
 
-        <div className="card rounded mb-3" style={{width: "18rem"}}>
-            <img src="https://via.placeholder.com/150" className="card-img-top img-fluid" alt="img"/>
-            <div className="card-body">
-                <h5 className="card-title">Artículo 1</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Alex Hdz.</h6>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="###" className="btn btn-primary color_bg" style={{width: "100%"}}>Leer</a>
-            </div>
-        </div>
-
-        <div className="card rounded mb-3" style={{width: "18rem"}}>
-            <img src="https://via.placeholder.com/150" className="card-img-top img-fluid" alt="img"/>
-            <div className="card-body">
-                <h5 className="card-title">Artículo 1</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Alex Hdz.</h6>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="###" className="btn btn-primary color_bg" style={{width: "100%"}}>Leer</a>
-            </div>
-        </div>
+            {articles.map((article) => (
+                <Article key={article.id} article={article} width="18rem" />
+            ))}
         </>
     );
-}
+};

@@ -1,7 +1,7 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import Loader from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
+import PageLoader from "./PageLoader";
 
 interface ProtectedRouteProps {
     type: "public" | "private";
@@ -19,7 +19,7 @@ export default function ProtectedRoute({
     const auth = getAuth();
     const history = useHistory();
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(localStorage.getItem("email") === undefined);
 
     useEffect(() => {
         let mounted = true;
@@ -45,16 +45,8 @@ export default function ProtectedRoute({
     }, [history, type, auth, loading]);
 
     return loading ? (
-        <div style={loaderStyles}>
-            <Loader type="Audio" color="#2764a7" height={160} width={160} />
-        </div>
+        <PageLoader />
     ) : (
         <>{children}</>
     );
 }
-
-const loaderStyles: React.CSSProperties = {
-    height: "100vh",
-    display: "grid",
-    placeItems: "center",
-};

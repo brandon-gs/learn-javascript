@@ -24,6 +24,7 @@ const customStyles = {
 
 interface Props {
     isOpen: boolean;
+    nextLesson: string;
     isLoadingModal: boolean;
     setIsOpen: (isOpen: boolean) => void;
     goToNextLesson: () => void;
@@ -32,6 +33,7 @@ interface Props {
 export default function NextProblemModal({
     isOpen,
     isLoadingModal,
+    nextLesson,
     setIsOpen,
     goToNextLesson,
 }: Props) {
@@ -77,7 +79,9 @@ export default function NextProblemModal({
                                 borderColor: "#2764a7",
                             }}
                         >
-                            Ir a la siguiente lección
+                            {nextLesson !== ""
+                                ? "Ir a la siguiente lección"
+                                : "Ir a la sección de cursos"}
                         </button>
                     </>
                 )}

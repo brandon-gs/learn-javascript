@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import courses, { CourseData } from "../utils/courses";
+import freecourses, { CourseData, paymentCourses } from "../utils/courses";
 import StyledCodeMirror from "../components/StyledCodeMirror";
 import useConsole from "../hooks/useConsole";
 import { createContext, Script } from "vm";
@@ -15,10 +15,20 @@ import NextProblemModal from "../components/NextProblemModal";
 import ListInstructions from "../components/ListInstructions";
 import ProblemActions from "../components/ProblemActions";
 import LessonInformation from "../components/LessonInformation";
+import { BrowserView, MobileView } from "react-device-detect";
+import MobileProblemView from "../components/MobileProblemView";
+import useUnlockedChallenges from "../hooks/useUnlockedChallenges";
+import PageLoader from "../components/PageLoader";
+import { paymentCoursesString } from "../utils/paymentCourses";
+
+const courses = [...freecourses, ...paymentCourses];
 
 export default function ProblemPage() {
     const { consoleRef, addToConsole, clearConsole } = useConsole();
     const informationRef = useRef<any>();
+
+    // Add paymentsCourses if the user made the pay before
+    const { unlockedChallenges, loading } = useUnlockedChallenges();
 
     // We can use the `useParams` hook here to access
     // the dynamic pieces of the URL.
@@ -38,6 +48,7 @@ export default function ProblemPage() {
     const disableLoadingModal = () => setIsLoadingModal(false);
 
     // Code state
+    const [defaultCode, setDefaultCode] = useState<string>("");
     const [code, setCode] = useState<string>("");
 
     // Current Lesson state
@@ -131,10 +142,9 @@ export default function ProblemPage() {
             addToConsole("// Pruebas completadas");
 
             // open modal
-            openModal();
-
-            // Scroll lesson to top
-            scrollTopInformationLesson();
+            setTimeout(() => {
+                openModal();
+            }, 1000);
 
             // Find if the user resolve the problem before
             const findProblem = userProblems.filter(
@@ -217,75 +227,130 @@ export default function ProblemPage() {
         };
 
         getUserProblems();
-    }, []);
+    }, [problem]);
+
+    // Redirect to problems if is payment lesson and the user isn't made the payment
+    useEffect(() => {
+        if (
+            !unlockedChallenges &&
+            !loading &&
+            paymentCoursesString.includes(course)
+        ) {
+            history.replace("/problems");
+        }
+    }, [loading, unlockedChallenges, course, history]);
+
+    // Set default code
+    useEffect(() => {
+        // Scroll lesson to top
+        scrollTopInformationLesson();
+
+        // Update default code
+        if (code === "" && typeof currentTest.defaultCode === "string") {
+            setDefaultCode(
+                currentTest.defaultCode ? currentTest.defaultCode : ""
+            );
+            setCode(currentTest.defaultCode ? currentTest.defaultCode : "");
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentTest]);
+
+    if (loading) {
+        return <PageLoader />;
+    }
+
+    if (
+        !unlockedChallenges &&
+        !loading &&
+        paymentCoursesString.includes(course)
+    ) {
+        return <PageLoader />;
+    }
 
     if (currentProblem.length === 0) {
-        return <div></div>;
+        return <PageLoader />;
     }
 
     return (
         <ProtectedRoute type="private">
             <Navbar />
-            <NextProblemModal
-                isOpen={isOpen}
-                isLoadingModal={isLoadingModal}
-                setIsOpen={setIsOpen}
-                goToNextLesson={() => {
-                    // reset state and redirect to next lesson/problem
-                    firstConsoleMessage();
-                    setCode("");
-                    setSolvedTests([]);
-                    setIsOpen(false);
-                    setExecuted(false);
-                    history.push(nextLesson);
-                    scrollTopInformationLesson();
-                }}
-            />
-            <div
-                style={{
-                    display: "grid",
-                    gridTemplateColumns: "40% 60%",
-                    height: "calc(100vh - 56px)",
-                    maxHeight: "100vh",
-                    marginTop: 8,
-                }}
-            >
-                <section
-                    id="information"
-                    ref={informationRef}
+            <MobileView>
+                <MobileProblemView />
+            </MobileView>
+            <BrowserView>
+                <NextProblemModal
+                    nextLesson={nextLesson}
+                    isOpen={isOpen}
+                    isLoadingModal={isLoadingModal}
+                    setIsOpen={setIsOpen}
+                    goToNextLesson={() => {
+                        // reset state and redirect to next lesson/problem
+                        firstConsoleMessage();
+                        setCode("");
+                        setSolvedTests([]);
+                        setIsOpen(false);
+                        setExecuted(false);
+                        if (nextLesson !== "") {
+                            history.replace(nextLesson);
+                        } else {
+                            history.replace("/problems");
+                        }
+                        scrollTopInformationLesson();
+                    }}
+                />
+                <div
                     style={{
-                        gridRow: 1,
-                        overflowY: "scroll",
-                        padding: 16,
-                        paddingTop: 32,
-                        background: "#1b1b32",
-                        color: "#FFF",
+                        display: "grid",
+                        gridTemplateColumns: "40% 60%",
+                        height: "calc(100vh - 56px)",
+                        maxHeight: "100vh",
+                        marginTop: 8,
                     }}
                 >
-                    <h1 style={{ textAlign: "center", fontSize: 24 }}>
-                        {currentProblem[0].problemName}
-                    </h1>
+                    <section
+                        id="information"
+                        ref={informationRef}
+                        style={{
+                            gridRow: 1,
+                            overflowY: "scroll",
+                            padding: 16,
+                            paddingTop: 32,
+                            background: "#1b1b32",
+                            color: "#FFF",
+                        }}
+                    >
+                        <h1 style={{ textAlign: "center", fontSize: 24 }}>
+                            {currentProblem[0].problemName}
+                        </h1>
 
-                    <LessonInformation post={post} />
+                        <LessonInformation post={post} />
 
-                    <ListInstructions
-                        executed={executed}
-                        instructions={currentTest.instructions}
-                        solvedTests={solvedTests}
-                    />
+                        <ListInstructions
+                            executed={executed}
+                            instructions={currentTest.instructions}
+                            solvedTests={solvedTests}
+                        />
 
-                    {/* Buttons action */}
-                    <ProblemActions
-                        showResult={showResult}
-                        setCode={setCode}
-                        nextLesson={nextLesson}
-                    />
-                </section>
-                <div style={{ display: "grid", gridTemplateRows: "72% 28%" }}>
-                    <StyledCodeMirror code={code} setCode={setCode} />
-                    <Console ref={consoleRef} />
+                        {/* Buttons action */}
+                        <ProblemActions
+                            defaultCode={defaultCode}
+                            showResult={showResult}
+                            setCode={setCode}
+                            nextLesson={nextLesson}
+                        />
+                    </section>
+                    <div
+                        style={{ display: "grid", gridTemplateRows: "72% 28%" }}
+                    >
+                        <StyledCodeMirror
+                            defaultCode={defaultCode}
+                            code={code}
+                            setCode={setCode}
+                        />
+                        <Console ref={consoleRef} />
+                    </div>
                 </div>
-            </div>
+            </BrowserView>
         </ProtectedRoute>
     );
 }

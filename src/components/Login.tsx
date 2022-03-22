@@ -93,25 +93,31 @@ export const Login = () => {
                                             }
                                         />
                                     </div>
-                                    <div className="d-flex justify-content-around my-4">
+                                    <div className="d-grid gap-2">
                                         <button
                                             type="submit"
                                             className="btn btn-primary"
                                         >
                                             Iniciar sesión
                                         </button>
-                                        <Link
-                                            to="/register"
-                                            className="btn btn-secondary"
-                                        >
-                                            Registrarse
-                                        </Link>
-                                        <Link
-                                            to="/forgotPassword"
-                                            className="btn btn-warning"
-                                        >
-                                            Recuperar contraseña
-                                        </Link>
+                                    </div>
+                                    <div className="row justify-content-end mt-3">
+                                        <div>
+                                            <p className="float-start">
+                                                <Link
+                                                    to="/register"
+                                                    className="ms-2"
+                                                >
+                                                    Registrarse
+                                                </Link>
+                                            </p>
+                                            <Link
+                                                to="/forgotPassword"
+                                                className="float-end"
+                                            >
+                                                Recuperar contraseña
+                                            </Link>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

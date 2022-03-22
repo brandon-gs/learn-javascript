@@ -1,3 +1,4 @@
+import { paymentAlgoritmCourse } from './courses/payment-algoritms';
 import { basicJavascriptCourse } from "./courses/basic-javascript";
 import { basicJavascriptCourse as basicDataCourse } from "./courses/basic-data-structures";
 
@@ -16,5 +17,6 @@ export interface CourseData {
 
 // Array with all courses
 const courses: CourseData[] = [basicJavascriptCourse, basicDataCourse];
+export const paymentCourses: CourseData[] = [paymentAlgoritmCourse]
 
 export default courses;

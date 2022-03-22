@@ -8,6 +8,9 @@ declare global {
             REACT_APP_FIREBASE_MESSAGING_SENDER_ID: string;
             REACT_APP_FIREBASE_APP_ID: string;
             REACT_APP_STRIPE_PUBLIC_KEY: string;
+            CLOUDINARY_NAME: string;
+            CLOUDINARY_KEY: string;
+            CLOUDINARY_SECRET: string;
         }
     }
 }
