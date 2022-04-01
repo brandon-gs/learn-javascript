@@ -9,6 +9,5 @@ export function getStringDate(seconds: number) {
     const year = _date.getUTCFullYear();
     const month = _date.getUTCMonth();
     const day = _date.getUTCDate();
-    console.log(day)
     return `${day} de ${MONTHS[month - 1]} de ${year}`;
 }

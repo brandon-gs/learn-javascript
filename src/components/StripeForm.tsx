@@ -92,6 +92,10 @@ function Form({ updatePayment }: StripeBuyFormProps) {
         setLoading(() => false);
     };
 
+    if (success) {
+        return null
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <div

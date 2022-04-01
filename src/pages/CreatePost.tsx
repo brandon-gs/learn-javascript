@@ -183,7 +183,7 @@ function CreatePost() {
                         setLoadingEditor(() => false);
                         editorRef.current = editor;
                     }}
-                    initialValue="<p>Comienza a escribir tu post...</p>"
+                    initialValue="<p>Comienza a escribir tu artículo...</p>"
                     init={{
                         height: 500,
                         menubar: false,
@@ -244,7 +244,7 @@ function CreatePost() {
                         onClick={handleSavePost}
                         className="btn btn-primary btn-lg mt-5 mb-5"
                     >
-                        Crear post
+                        Crear artículo
                     </button>
                 </div>
             </div>

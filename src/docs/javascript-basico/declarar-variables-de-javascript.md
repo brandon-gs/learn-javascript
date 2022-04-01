@@ -12,6 +12,10 @@ Le decimos a JavaScript que cree o <dfn>declare</dfn> una variable poniendo la p
 var miNombre;
 ```
 
+<hr>
+
 Crea una variable llamada `miNombre`. En JavaScript terminamos las sentencias con punto y coma. Los nombres de las variables pueden estar formados por números, letras y `$` o `_`, pero no pueden contener espacios ni empezar con un número.
+
+<hr>
 
 #### Instrucciones

@@ -35,8 +35,6 @@ app.post("/api/checkout", async (req, res) => {
             confirm: true,
         });
 
-        console.log(payment);
-
         return res.send({ error: false, message: "Pago satisfactorio" });
     } catch (error) {
         return res.json({

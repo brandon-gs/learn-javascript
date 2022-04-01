@@ -13,12 +13,12 @@ Todos los arreglos tienen una propiedad de longitud, que como se muestra arriba,
 let complexArray = [
     [
         {
-            one: 1,
-            two: 2,
+            uno: 1,
+            dos: 2,
         },
         {
-            three: 3,
-            four: 4,
+            tres: 3,
+            cuatro: 4,
         },
     ],
     [
@@ -33,5 +33,11 @@ let complexArray = [
     ],
 ];
 ```
+
+<hr>
+
+Hemos definido una variable llamada <code>tuArray</code>. Completa la sentencia asignando un arreglo de al menos 5 elementos de longitud a la variable <code>tuArray</code>. Tu arreglo debe contener al menos una cadena (string), un número (number) y un booleano (boolean).
+
+<hr>
 
 ### Instrucciones

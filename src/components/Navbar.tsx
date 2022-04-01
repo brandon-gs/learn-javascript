@@ -7,7 +7,6 @@ export const Navbar = () => {
         signOut(auth)
             .then(() => {
                 localStorage.removeItem("email");
-                console.log("logout");
             })
             .catch((error) => {
                 console.log(error);

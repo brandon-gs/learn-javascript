@@ -25,7 +25,8 @@ export default function useUnlockedChallenges() {
 
     useEffect(() => {
         getUnlockedChallenges();
-    }, [getUnlockedChallenges]);
+        // eslint-disable-next-line
+    }, []);
 
     return { unlockedChallenges, loading, getUnlockedChallenges };
 }
