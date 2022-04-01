@@ -96,7 +96,6 @@ export const ForgotPassword = () => {
                                         </button>
                                         <Link
                                             to="/"
-                                            className="btn btn-secondary"
                                         >
                                             Iniciar sesión
                                         </Link>

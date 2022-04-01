@@ -16,12 +16,10 @@ export default function ProblemsPage() {
     return (
         <ProtectedRoute type="private">
             <Navbar />
-            <div
-                className="container my-3 p-5 rounded"
-                style={{ backgroundColor: "#ddd" }}
-            >
-                <div className="row">
-                    <div className="col">
+            
+            <div className="container my-3 p-5 rounded " style={{ backgroundColor: "#ddd" }}>
+            <div className="row">
+                    <div className="col-sm-6 col-12 border border-danger">
                         <h1 className="my-3">SCRIPTMASH</h1>
                         <p>
                             Bienvenido a ScriptMash, la plataforma que te
@@ -40,8 +38,8 @@ export default function ProblemsPage() {
                             Comenzar
                         </a>
                     </div>
-                    <div className="col text-center">
-                        <img src={img_main} alt="img" width="400" />
+                    <div className="col-sm-6 col-12 text-center border border-dark">
+                        <img src={img_main} className="img-fluid" alt="img" width="400" />
                     </div>
                 </div>
             </div>
@@ -50,7 +48,7 @@ export default function ProblemsPage() {
                 style={{ backgroundColor: "#ddd" }}
             >
                 <div className="row">
-                    <div className="col-8 d-flex justify-content-center">
+                    <div className="col-sm-8 col-12 d-flex justify-content-center">
                         <div id="cursos">
                             <div className="d-flex flex-column align-items-center">
                                 <h1
@@ -76,7 +74,7 @@ export default function ProblemsPage() {
                             )}
                         </div>
                     </div>
-                    <div className="col-4 d-flex justify-content-center">
+                    <div className="col d-flex justify-content-center">
                         <div id="articulos">
                             <Articles />
                         </div>
