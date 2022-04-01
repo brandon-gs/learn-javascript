@@ -7,7 +7,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { BiLockOpenAlt } from "react-icons/bi";
-import cart from "../assets/img/cart.png";
+import cart from "../assets/img/card.svg";
 import stripeErrors from "../utils/stripeErrors";
 import { useState } from "react";
 import { PaymentType } from "../utils/payment";
@@ -129,7 +129,7 @@ function Form({ updatePayment }: StripeBuyFormProps) {
                                     )}
                                     <img
                                         src={cart}
-                                        alt="Imagen decorativa de un carrito de compra"
+                                        alt="Paymend"
                                         className="img-fluid mx-auto d-block my-2"
                                         width={160}
                                     />
@@ -160,7 +160,7 @@ function Form({ updatePayment }: StripeBuyFormProps) {
                                 {!success ? (
                                     <button
                                         type="submit"
-                                        className="btn btn-success"
+                                        className="btn btn-primary"
                                         disabled={!stripe || loading}
                                     >
                                         {loading ? (

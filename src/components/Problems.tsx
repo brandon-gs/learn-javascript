@@ -35,16 +35,23 @@ export const Problems = () => {
     return (
         <>
             <h2 className="text-center">Cursos</h2>
-            {currentCourses.map((course) => (
-                <Course
-                    key={course.title}
-                    title={course.title}
-                    titleUri={course.titleUri}
-                    description={course.description}
-                    problems={course.problems}
-                    dbProblems={problems}
-                />
-            ))}
+
+            <div className="row">
+                <div className="col d-flex justify-content-center">
+                    <div>
+                        {currentCourses.map((course) => (
+                            <Course
+                                key={course.title}
+                                title={course.title}
+                                titleUri={course.titleUri}
+                                description={course.description}
+                                problems={course.problems}
+                                dbProblems={problems}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
         </>
     );
 };
