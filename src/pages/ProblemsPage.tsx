@@ -19,7 +19,7 @@ export default function ProblemsPage() {
             
             <div className="container my-3 p-5 rounded " style={{ backgroundColor: "#ddd" }}>
             <div className="row">
-                    <div className="col-sm-6 col-12 border border-danger">
+                    <div className="col-sm-6 col-12">
                         <h1 className="my-3">SCRIPTMASH</h1>
                         <p>
                             Bienvenido a ScriptMash, la plataforma que te
@@ -38,7 +38,7 @@ export default function ProblemsPage() {
                             Comenzar
                         </a>
                     </div>
-                    <div className="col-sm-6 col-12 text-center border border-dark">
+                    <div className="col-sm-6 col-12 text-center">
                         <img src={img_main} className="img-fluid" alt="img" width="400" />
                     </div>
                 </div>
