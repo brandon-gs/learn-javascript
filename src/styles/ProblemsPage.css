@@ -1,0 +1,13 @@
+.modal-container {
+    width: 320px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-container p {
+    margin-top: 16px;
+    font-size: 24px;
+}
