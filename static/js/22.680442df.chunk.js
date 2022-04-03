@@ -1,0 +1,2 @@
+(this["webpackJsonplearn-javascript"]=this["webpackJsonplearn-javascript"]||[]).push([[22],{275:function(a,r,s){"use strict";s.r(r),r.default=s.p+"static/media/usar-un-array-para-guardar-una-coleccion-de-datos.715063d4.md"}}]);
+//# sourceMappingURL=22.680442df.chunk.js.map

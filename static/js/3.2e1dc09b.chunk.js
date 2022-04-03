@@ -1,2 +1,0 @@
-(this["webpackJsonplearn-javascript"]=this["webpackJsonplearn-javascript"]||[]).push([[3],{79:function(a,t,c){"use strict";c.r(t),t.default=c.p+"static/media/comentar-tu-codigo-de-javascript.2fd8ff0c.md"}}]);
-//# sourceMappingURL=3.2e1dc09b.chunk.js.map

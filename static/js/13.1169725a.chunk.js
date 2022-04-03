@@ -1,0 +1,2 @@
+(this["webpackJsonplearn-javascript"]=this["webpackJsonplearn-javascript"]||[]).push([[13],{266:function(e,a,s){"use strict";s.r(a),a.default=s.p+"static/media/elimina-elementos-de-un-arreglo-con-pop-y-shift.31d6cfe0.md"}}]);
+//# sourceMappingURL=13.1169725a.chunk.js.map

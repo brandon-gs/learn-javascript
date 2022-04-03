@@ -1,0 +1,2 @@
+(this["webpackJsonplearn-javascript"]=this["webpackJsonplearn-javascript"]||[]).push([[21],{274:function(a,e,s){"use strict";s.r(e),e.default=s.p+"static/media/usa-la-palabra-clave-delete-para-eliminar-las-propiedades-de-los-objetos.31d6cfe0.md"}}]);
+//# sourceMappingURL=21.455eb9db.chunk.js.map

@@ -1,0 +1,2 @@
+(this["webpackJsonplearn-javascript"]=this["webpackJsonplearn-javascript"]||[]).push([[25],{278:function(a,s,t){"use strict";t.r(s),s.default=t.p+"static/media/declarar-variables-de-javascript.09d87d9a.md"}}]);
+//# sourceMappingURL=25.c5aad35d.chunk.js.map
