@@ -47,8 +47,8 @@ export default function ProblemsPage() {
                 className="container p-5 mb-3 rounded"
                 style={{ backgroundColor: "#ddd" }}
             >
-                <div className="row">
-                    <div className="col-sm-8 col-12 d-flex justify-content-center">
+                <div className="row justify-content-center">
+                    <div className="col-sm-8 col-12 d-flex justify-content-center mb-4">
                         <div id="cursos">
                             <div className="d-flex flex-column align-items-center">
                                 <h1

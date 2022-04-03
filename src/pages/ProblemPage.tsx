@@ -113,11 +113,13 @@ export default function ProblemPage() {
             assert,
         };
 
+        const codeWithSingleQuoting = code.replaceAll('"', "'")
+
         // Concatenate the user's code and test of the current problem code
         const codeWithTest =
-            code +
+            codeWithSingleQuoting +
             `
-            ${currentTest.tests(code)}
+            ${currentTest.tests(codeWithSingleQuoting)}
 		    `;
 
         // Create a new script with the user's code + test's code

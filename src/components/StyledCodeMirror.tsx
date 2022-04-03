@@ -7,7 +7,6 @@ import "codemirror/mode/javascript/javascript";
 import { Controlled } from "react-codemirror2";
 // Styles
 import "../styles/Codemirror.css";
-import { useEffect, useState } from "react";
 
 interface StyledCodeMirror {
     defaultCode: string;
@@ -22,11 +21,6 @@ export default function CodeMirror({
     setCode,
     className = "",
 }: StyledCodeMirror) {
-    const [currentCode, setCurrentCode] = useState<string>(defaultCode + code);
-
-    useEffect(() => {
-        setCurrentCode(code);
-    }, [code]);
 
     return (
         <section
@@ -38,7 +32,7 @@ export default function CodeMirror({
         >
             <div className={`codemirror ${className}`}>
                 <Controlled
-                    value={currentCode}
+                    value={code}
                     className="codemirror"
                     options={{
                         mode: "javascript",

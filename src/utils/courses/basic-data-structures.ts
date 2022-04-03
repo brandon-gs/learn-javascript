@@ -8,6 +8,10 @@ export const basicDataStructuresProblems: Problems[] = [
     {
         problemName: "Accede a los contenidos de un arreglo utilizando la notación de corchetes",
         problemUri: "accede-a-los-contenidos-de-un-arreglo-utilizando-la-notacion-de-corchetes",
+    },
+    {
+        problemName: "Agrega elementos a un arreglo con push() y unshift()",
+        problemUri: "agrega-elementos-a-un-arreglo-con-push-y-unshift",
     }
 ];
 
