@@ -3,16 +3,13 @@ import courses, { paymentCourses } from "../utils/courses";
 import "../styles/Problems.css";
 import { useEffect, useState } from "react";
 import CoursesService from "../services/courses";
-import useUnlockedChallenges from "../hooks/useUnlockedChallenges";
 
-export const Problems = () => {
+export const Problems = ({ unlockedChallenges }: { unlockedChallenges: boolean} ) => {
     const [currentCourses, setCurrentCourses] = useState(courses);
 
     const [problems, setProblems] = useState<
         { course: string; problem: string; user_email: string }[]
     >([]);
-
-    const { unlockedChallenges } = useUnlockedChallenges();
 
     useEffect(() => {
         const getResolvedProblems = async () => {

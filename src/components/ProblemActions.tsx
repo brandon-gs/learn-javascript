@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 
 interface Props {
+    youtubeId?: string;
     defaultCode: string;
     showResult: () => Promise<void>;
     setCode: (code: string) => void;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function ProblemActions({
+    youtubeId,
     defaultCode,
     showResult,
     setCode,
@@ -21,9 +23,21 @@ export default function ProblemActions({
             <button onClick={showResult} className="buttonTests">
                 Ejecutar pruebas
             </button>
-            <button onClick={() => setCode(defaultCode)} className="buttonTests">
+            <button
+                onClick={() => setCode(defaultCode)}
+                className="buttonTests"
+            >
                 Reiniciar código
             </button>
+            {youtubeId && (
+                <button
+                    className="buttonTests"
+                    data-bs-toggle="modal"
+                    data-bs-target="#videoModal"
+                >
+                    Ver vídeo de ayuda
+                </button>
+            )}
             {nextLesson !== "" ? (
                 <button
                     onClick={() => history.push(nextLesson)}
@@ -39,6 +53,7 @@ export default function ProblemActions({
                     Regresar a los cursos
                 </button>
             )}
+            
         </>
     );
 }

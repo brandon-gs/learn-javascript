@@ -113,7 +113,7 @@ export default function ProblemPage() {
             assert,
         };
 
-        const codeWithSingleQuoting = code.replaceAll('"', "'")
+        const codeWithSingleQuoting = code.replaceAll('"', "'");
 
         // Concatenate the user's code and test of the current problem code
         const codeWithTest =
@@ -335,11 +335,58 @@ export default function ProblemPage() {
 
                         {/* Buttons action */}
                         <ProblemActions
+                            youtubeId={currentTest.youtubeId}
                             defaultCode={defaultCode}
                             showResult={showResult}
                             setCode={setCode}
                             nextLesson={nextLesson}
                         />
+                        {/* Modal video */}
+                        {currentTest.youtubeId && (
+                            <div
+                                className="modal fade"
+                                id="videoModal"
+                                tabIndex={-1}
+                                aria-labelledby="videoModalLabel"
+                                aria-hidden="true"
+                            >
+                                <div className="modal-dialog">
+                                    <div
+                                        className="modal-content bg-dark"
+                                        style={{ width: 594 }}
+                                    >
+                                        <div className="modal-body">
+                                            <div
+                                                style={{
+                                                    width: 560,
+                                                    height: 315,
+                                                }}
+                                            >
+                                                <iframe
+                                                    width="560"
+                                                    height="315"
+                                                    src={`https://www.youtube.com/embed/${currentTest.youtubeId}`}
+                                                    title="YouTube video player"
+                                                    frameBorder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowFullScreen
+                                                ></iframe>
+                                            </div>
+                                            <div className="d-grid gap-2 mt-2">
+                                                <button
+                                                    className="btn btn-secondary"
+                                                    type="button"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                >
+                                                    Cerrar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </section>
                     <div
                         style={{ display: "grid", gridTemplateRows: "72% 28%" }}

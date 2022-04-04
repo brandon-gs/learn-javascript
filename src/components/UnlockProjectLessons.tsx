@@ -1,4 +1,3 @@
-import React from "react";
 import StripeForm from "./StripeForm";
 
 interface UnlockProjectLessonsProps {
@@ -7,7 +6,7 @@ interface UnlockProjectLessonsProps {
 
 function UnlockProjectLessons({ updatePayment }: UnlockProjectLessonsProps) {
     return (
-        <div className="card" style={{ width: "22rem", marginTop: 8 }}>
+        <div className="card" style={{ width: "30rem", marginTop: 8 }}>
             <div className="card-body">
                 <h5 className="card-title">Preparación para entrevista de programación</h5>
                 <pre

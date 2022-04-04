@@ -2,7 +2,7 @@ import PaymentsService from "../services/payments";
 import { useCallback, useEffect, useState } from "react";
 import { PaymentType } from "../utils/payment";
 
-export default function useUnlockedChallenges() {
+export default function useUnlockedChallenges(execute = true) {
     // Allow to know if the user pays for the challenges
     const [unlockedChallenges, setUnlockedChallenges] =
         useState<boolean>(false);
@@ -24,9 +24,11 @@ export default function useUnlockedChallenges() {
     }, [email]);
 
     useEffect(() => {
-        getUnlockedChallenges();
+        if (execute) {
+            getUnlockedChallenges();
+        }
         // eslint-disable-next-line
-    }, []);
+    }, [execute]);
 
     return { unlockedChallenges, loading, getUnlockedChallenges };
 }

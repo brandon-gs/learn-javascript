@@ -3,7 +3,6 @@ import { Problems } from "../components/Problems";
 import { Articles } from "../components/Articles";
 import ProtectedRoute from "../components/ProtectedRoute";
 import UnlockProjectLessons from "../components/UnlockProjectLessons";
-
 import img_main from "../assets/img/img_main.svg";
 import javascriptLogo from "../assets/img/javascript.jpeg";
 import useUnlockedChallenges from "../hooks/useUnlockedChallenges";
@@ -66,11 +65,9 @@ export default function ProblemsPage() {
                                     className="javascript-logo"
                                 ></img>
                             </div>
-                            <Problems />
+                            <Problems unlockedChallenges={unlockedChallenges} />
                             {Boolean(!unlockedChallenges && !loading) && (
-                                <UnlockProjectLessons
-                                    updatePayment={getUnlockedChallenges}
-                                />
+                                <UnlockProjectLessons updatePayment={getUnlockedChallenges}/>
                             )}
                         </div>
                     </div>

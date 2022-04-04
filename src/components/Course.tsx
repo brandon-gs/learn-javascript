@@ -35,8 +35,9 @@ export default function Course({
             <div id={`accordion-${titleUri}`}>
                 <button
                     className="list-group-item list-group-item-action count-exercise"
-                    data-toggle="collapse"
-                    data-target={`#${titleUri}`}
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#${titleUri}`}
                     aria-expanded="false"
                     aria-controls={`${titleUri}`}
                     onClick={() => updateShowCourse()}
@@ -48,35 +49,26 @@ export default function Course({
                         /{problems.length}
                     </span>
                 </button>
-                {showCourses && (
-                    <div
-                        id={`${titleUri}`}
-                        className="collapse"
-                        aria-labelledby="headingOne"
-                        data-parent={`#accordion-${titleUri}`}
-                    >
-                        {problems.map((problem) => {
-                            const isResolved =
-                                dbProblems.filter(
-                                    (dbProblem) =>
-                                        dbProblem.problem === problem.problemUri
-                                ).length > 0;
-                            return (
-                                <Link
-                                    to={`challenge/${titleUri}/${problem.problemUri}`}
-                                    key={problem.problemUri}
-                                    className={`list-group-item list-group-item-action ${
-                                        isResolved
-                                            ? "bg-success text-white"
-                                            : ""
-                                    }`}
-                                >
-                                    {problem.problemName}
-                                </Link>
-                            );
-                        })}
-                    </div>
-                )}
+                <div id={titleUri} className="collapse">
+                    {problems.map((problem) => {
+                        const isResolved =
+                            dbProblems.filter(
+                                (dbProblem) =>
+                                    dbProblem.problem === problem.problemUri
+                            ).length > 0;
+                        return (
+                            <Link
+                                to={`challenge/${titleUri}/${problem.problemUri}`}
+                                key={problem.problemUri}
+                                className={`list-group-item list-group-item-action ${
+                                    isResolved ? "bg-success text-white" : ""
+                                }`}
+                            >
+                                {problem.problemName}
+                            </Link>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

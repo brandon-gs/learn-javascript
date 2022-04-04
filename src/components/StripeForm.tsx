@@ -18,12 +18,12 @@ const stripePromise = loadStripe(
         "pk_test_51Kc0UeEqY7vcnX4vDJFCSUC18gW2toh7KaHfyafymJysGxRL9HLHCG08z848PbBHQoPS0YDAxXcUERDKHdogrdV100cQr7TB0U"
 );
 
-
 interface StripeBuyFormProps {
     updatePayment: () => void;
 }
 
 function Form({ updatePayment }: StripeBuyFormProps) {
+
     const stripe = useStripe();
     const elements = useElements();
 
@@ -52,7 +52,7 @@ function Form({ updatePayment }: StripeBuyFormProps) {
         });
 
         if (error) {
-            return 
+            return;
         }
 
         if (paymentMethod) {
@@ -73,28 +73,21 @@ function Form({ updatePayment }: StripeBuyFormProps) {
                 } else {
                     error = stripeErrors.errorCode[data.code];
                 }
-                setMessageError(error);
+                setMessageError(error !== "" ? error : "Error al procesar, intentalo más tarde");
+                setLoading(() => false);
             } else {
                 // Acciones a ejecutar cuando el pago se haya realizado satisfactoriamente
-                elements.getElement(CardElement)?.clear();
                 const email = localStorage.getItem("email");
                 if (email) {
                     await PaymentsService.create({
                         user_email: email,
                         type: PaymentType.CHALLENGES,
                     });
-                    updatePayment()
                 }
                 setSuccess(() => true);
             }
         }
-
-        setLoading(() => false);
     };
-
-    if (success) {
-        return null
-    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -160,7 +153,7 @@ function Form({ updatePayment }: StripeBuyFormProps) {
                                 {!success ? (
                                     <button
                                         type="submit"
-                                        className="btn btn-primary"
+                                        className="btn btn-success"
                                         disabled={!stripe || loading}
                                     >
                                         {loading ? (
@@ -179,8 +172,9 @@ function Form({ updatePayment }: StripeBuyFormProps) {
                                         data-bs-dismiss="modal"
                                         data-dismiss="modal"
                                         aria-label="Close"
+                                        onClick={() => updatePayment()}
                                     >
-                                        Finalizar
+                                        Desbloquear <BiLockOpenAlt />
                                     </button>
                                 )}
                             </div>
@@ -202,8 +196,8 @@ export default function StripeForm({ updatePayment }: StripeFormProps) {
             <button
                 type="button"
                 className="list-group-item list-group-item-action count-exercise bg-secondary"
-                data-toggle="modal"
-                data-target="#stripeModal"
+                data-bs-toggle="modal"
+                data-bs-target="#stripeModal"
             >
                 Comprar desafíos
                 <span className="float-end">
