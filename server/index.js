@@ -59,6 +59,7 @@ app.post("/api/blog/image/upload", async (req, res) => {
         }
         return res.json({ error: true, imageName, message });
     } catch (error) {
+        console.log(JSON.stringify(error))
         return res.json({
             error: true,
             imageName: "",

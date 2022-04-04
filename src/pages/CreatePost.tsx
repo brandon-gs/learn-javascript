@@ -224,8 +224,8 @@ function CreatePost() {
                             "insertdatetime media table paste code help wordcount",
                         ],
                         toolbar:
-                            "undo redo | formatselect | " +
-                            "bold italic backcolor | alignleft aligncenter " +
+                            "undo redo | formatselect fontsizeselect | " +
+                            "bold italic backcolor code | alignleft aligncenter " +
                             "alignright alignjustify | bullist numlist outdent indent | " +
                             "removeformat | link image | help",
                         content_style:
